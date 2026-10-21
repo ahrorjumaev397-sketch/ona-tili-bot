@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head><body>
+<title>Esse Ustaxonasi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Maket: tepada ikat chizigʻi, ostida mavzu varagʻi; chapda yozuv maydoni, oʻngda tekshiruv varagʻi */
+:root{
+  --bg:#edf1ef; --paper:#fbfcfb; --ink:#10242c; --mut:#53686e; --line:#cddad6;
+  --acc:#0a7c83; --accfg:#ffffff; --cob:#1f4c9a; --err:#b3263e; --warn:#a96300; --info:#2b5c9e; --ok:#1c7a4b;
+  --tint:#e3f0ee; --shadow:0 1px 0 rgba(16,36,44,.06),0 10px 26px -14px rgba(16,36,44,.28);
+  --f-disp:"Literata",Georgia,"Times New Roman",serif;
+  --f-body:"Literata",Georgia,"Times New Roman",serif;
+  --f-ui:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1618; --paper:#112226; --ink:#e5f0ee; --mut:#8fa9ad; --line:#24393f;
+  --acc:#3cc3c9; --accfg:#052225; --cob:#7ba3f0; --err:#ff8294; --warn:#f0b35a; --info:#86b5f2; --ok:#6fd19b;
+  --tint:#173037; --shadow:0 1px 0 rgba(0,0,0,.4),0 10px 26px -14px rgba(0,0,0,.7); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0b1618; --paper:#112226; --ink:#e5f0ee; --mut:#8fa9ad; --line:#24393f;
+  --acc:#3cc3c9; --accfg:#052225; --cob:#7ba3f0; --err:#ff8294; --warn:#f0b35a; --info:#86b5f2; --ok:#6fd19b;
+  --tint:#173037; --shadow:0 1px 0 rgba(0,0,0,.4),0 10px 26px -14px rgba(0,0,0,.7); color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-ui);padding-block:0 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+.strip{height:14px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));
+  background:
+   linear-gradient(135deg,var(--acc) 25%,transparent 25%) 0 0/28px 14px,
+   linear-gradient(225deg,var(--acc) 25%,transparent 25%) 0 0/28px 14px,
+   linear-gradient(315deg,var(--cob) 25%,transparent 25%) 14px 0/28px 14px,
+   linear-gradient(45deg,var(--cob) 25%,transparent 25%) 14px 0/28px 14px;
+  border-bottom:3px solid var(--err)}
+.wrap{max-width:1120px;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:34px;height:34px;flex:none}
+.brand b{font:700 22px/1 var(--f-disp);letter-spacing:.2px}
+.brand small{display:block;color:var(--mut);font-size:12px;margin-top:3px}
+.tabs{max-width:100%;overflow-x:auto;scrollbar-width:none;display:flex;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px}
+.tab{flex:none;border:0;background:transparent;padding:9px 12px;border-radius:9px;font-weight:600;min-height:40px;color:var(--mut)}
+.tab[aria-selected="true"]{background:var(--acc);color:var(--accfg)}
+.tab:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--cob);outline-offset:2px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.view[hidden]{display:none}
+.topicbar{padding:16px 18px;display:flex;gap:16px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+.tag{display:inline-block;font:600 12px/1 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--acc);background:var(--tint);padding:6px 9px;border-radius:6px}
+#tTitle{font:700 clamp(22px,4.4vw,32px)/1.18 var(--f-disp);margin-top:10px;text-wrap:balance;max-width:26ch}
+.tb-r{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--paper);padding:9px 14px;border-radius:10px;font-weight:600;min-height:42px}
+.btn:hover{border-color:var(--acc)}
+.btn.pri{background:var(--acc);color:var(--accfg);border-color:var(--acc)}
+.btn.sm{min-height:34px;padding:5px 11px;font-size:13px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.plan{margin-top:12px;padding:16px 18px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.plan[hidden]{display:none}
+.plan h3{font:600 14px var(--f-ui);margin-bottom:6px}
+.plan ul{margin:0;padding-left:18px;color:var(--mut)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--tint);border-radius:999px;padding:6px 11px;font-size:13px;min-height:34px}
+.chip:hover{border-color:var(--acc)}
+.grid2{display:grid;gap:16px;margin-top:16px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:920px){.grid2{grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);align-items:start}.rep{position:sticky;top:12px}}
+.edbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:14px;padding:10px 14px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);flex-wrap:wrap}
+.ring{position:relative;width:62px;height:62px;flex:none}
+.ring svg{width:62px;height:62px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .bg{stroke:var(--line)}
+.ring .fg{stroke:var(--acc);stroke-linecap:round;transition:stroke-dashoffset .35s ease,stroke .2s}
+.ring.done .fg{stroke:var(--ok)}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font:500 15px var(--f-mono)}
+.cnt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.cnt b{font:700 18px/1.2 var(--f-disp)}
+.cnt small{color:var(--mut)}
+.edbar .sp{flex:1}
+.timer{display:flex;gap:6px;align-items:center}
+.timer select{font:inherit;padding:8px;border-radius:9px;border:1px solid var(--line);background:var(--paper);color:var(--ink);min-height:38px}
+#clock{font:500 18px var(--f-mono);min-width:64px;text-align:right}
+#clock.low{color:var(--err)}
+.edwrap{position:relative;margin-top:12px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+#mirror,#ta{font:400 18px/1.75 var(--f-body);padding:18px 20px;margin:0;border:0;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;letter-spacing:0;tab-size:4}
+#mirror{position:absolute;inset:0;color:transparent;pointer-events:none;overflow:hidden;border-radius:14px}
+#ta{position:relative;display:block;width:100%;min-height:380px;resize:none;background:transparent;color:var(--ink);border-radius:14px;overflow:hidden;caret-color:var(--acc)}
+#ta:focus{outline:none}
+.edwrap:focus-within{border-color:var(--acc)}
+#mirror mark{background:transparent;color:transparent;text-decoration-line:underline;text-decoration-style:wavy;text-decoration-thickness:1.6px;text-underline-offset:4px}
+#mirror mark.err{text-decoration-color:var(--err)}
+#mirror mark.warn{text-decoration-color:var(--warn)}
+#mirror mark.info{text-decoration-color:var(--info);text-decoration-style:dotted}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.rep{display:flex;flex-direction:column;gap:12px;min-width:0}
+.scorecard{padding:16px 18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.big{font:700 52px/1 var(--f-disp);color:var(--acc)}
+.big small{font:500 14px var(--f-mono);color:var(--mut)}
+.lvl{display:inline-block;margin-top:6px;font:600 13px var(--f-ui);padding:5px 10px;border-radius:7px;background:var(--tint);color:var(--ink)}
+.note{color:var(--mut);font-size:13px}
+.rub{padding:14px 18px;display:flex;flex-direction:column;gap:11px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center}
+.rrow .nm{font-weight:600}
+.rrow .pt{font:500 13px var(--f-mono);color:var(--mut)}
+.bar{grid-column:1/-1;height:8px;border-radius:5px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);border-radius:5px;transition:width .35s ease}
+.bar i.lo{background:var(--err)}.bar i.mid{background:var(--warn)}
+.rrow small{grid-column:1/-1;color:var(--mut);font-size:12.5px;margin-top:-2px}
+.facts{padding:12px 18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px}
+.facts div{display:flex;flex-direction:column}
+.facts b{font:500 16px var(--f-mono)}
+.facts span{color:var(--mut);font-size:12.5px}
+.ihead{display:flex;gap:6px;flex-wrap:wrap;padding:12px 18px 0}
+.fchip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:600;min-height:34px}
+.fchip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ilist{list-style:none;margin:0;padding:8px 10px 12px;display:flex;flex-direction:column;gap:8px;max-height:560px;overflow:auto}
+.iss{border:1px solid var(--line);border-left-width:5px;border-radius:10px;padding:9px 11px;background:var(--paper)}
+.iss.err{border-left-color:var(--err)}.iss.warn{border-left-color:var(--warn)}.iss.info{border-left-color:var(--info)}
+.ih{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.cat{font:600 11px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.msg{font-size:14px}
+.snip{font:400 13.5px/1.5 var(--f-body);color:var(--mut);margin-top:4px;overflow-wrap:anywhere}
+.snip mark{background:var(--tint);color:var(--ink);padding:0 2px;border-radius:3px}
+.ib{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.empty{padding:18px;text-align:center;color:var(--mut)}
+details.sents{padding:12px 18px}
+details.sents summary{cursor:pointer;font-weight:600}
+.srow{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;padding:7px 0;border-top:1px solid var(--line);font-size:13.5px}
+.srow:first-of-type{margin-top:8px}
+.srow em{font-style:normal;color:var(--mut);font:500 12px var(--f-mono);white-space:nowrap}
+.ai[hidden]{display:none}
+.ai{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.ai h3{font:700 20px var(--f-disp)}
+.ai h4{margin:6px 0 0;font:600 13px var(--f-ui);text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
+.ai ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
+.ai .fix{border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.ai q{quotes:"«" "»";background:var(--tint);padding:0 3px;border-radius:3px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--acc);border-radius:50%;animation:sp 1s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}.ring .fg,.bar i{transition:none}}
+/* mavzular */
+.thead{display:flex;flex-direction:column;gap:12px;padding:6px 0 14px}
+.thead h2{font:700 clamp(24px,5vw,34px)/1.15 var(--f-disp)}
+.search{width:100%;max-width:520px;font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);min-height:46px}
+.tgrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.tcard{text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:13px 14px;display:flex;flex-direction:column;gap:7px;min-height:92px}
+.tcard:hover{border-color:var(--acc);box-shadow:var(--shadow)}
+.tcard.cur{border-color:var(--acc);outline:2px solid var(--acc);outline-offset:-2px}
+.tcard b{font:700 17px/1.25 var(--f-disp)}
+.tcard .meta{display:flex;gap:6px;align-items:center;color:var(--mut);font-size:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+/* natijalar */
+.stats{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-top:6px}
+.stat{padding:14px 16px}
+.stat b{display:block;font:700 30px/1.1 var(--f-disp);color:var(--acc)}
+.stat span{color:var(--mut);font-size:13px}
+.hist{margin-top:14px;padding:6px 6px}
+.hrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:11px 12px;border-top:1px solid var(--line)}
+.hrow:first-child{border-top:0}
+.hrow .t{font-weight:600;overflow-wrap:anywhere}
+.hrow .d{color:var(--mut);font-size:12.5px}
+.pill{font:500 14px var(--f-mono);background:var(--tint);padding:6px 10px;border-radius:8px;align-self:center}
+.spark{width:100%;height:90px;display:block}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;font-weight:600;z-index:40;max-width:calc(100% - 32px);opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+.foot{margin-top:26px;color:var(--mut);font-size:12.5px;max-width:70ch}
+
+/* ===== fon shakllari: tinchlantiruvchi ===== */
+.wrap,.strip{position:relative;z-index:2}
+.bgart{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bgart .bl{position:absolute;border-radius:50%;filter:blur(46px);opacity:.55;animation:drift 26s ease-in-out infinite alternate}
+.bgart .b1{width:46vmax;height:46vmax;left:-14vmax;top:-12vmax;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 38%,transparent),transparent 68%)}
+.bgart .b2{width:40vmax;height:40vmax;right:-12vmax;top:18vh;background:radial-gradient(circle,color-mix(in srgb,var(--cob) 30%,transparent),transparent 68%);animation-duration:32s;animation-delay:-8s}
+.bgart .b3{width:34vmax;height:34vmax;left:22vw;bottom:-16vmax;background:radial-gradient(circle,color-mix(in srgb,#e0a458 34%,transparent),transparent 68%);animation-duration:38s;animation-delay:-15s}
+.bgart svg.wv{position:absolute;left:0;right:0;bottom:0;width:100%;height:24vh;min-height:120px;opacity:.9}
+.bgart svg.wv path{animation:sway 14s ease-in-out infinite alternate;transform-origin:center bottom}
+.bgart svg.wv path:nth-child(2){animation-duration:19s;animation-delay:-5s}
+.bgart .dm{position:absolute;width:140px;height:140px;border:2px solid color-mix(in srgb,var(--acc) 25%,transparent);transform:rotate(45deg);border-radius:18px;animation:spinslow 80s linear infinite}
+.bgart .dm::after{content:"";position:absolute;inset:26px;border:2px solid color-mix(in srgb,var(--cob) 22%,transparent);border-radius:12px}
+.bgart .d1{right:6vw;top:12vh}.bgart .d2{left:4vw;top:58vh;width:96px;height:96px;animation-direction:reverse}
+@keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(4vmax,3vmax,0) scale(1.12)}}
+@keyframes sway{from{transform:translateX(-2%) scaleY(1)}to{transform:translateX(2%) scaleY(1.12)}}
+@keyframes spinslow{to{transform:rotate(405deg)}}
+@media (prefers-reduced-motion:reduce){.bgart .bl,.bgart svg.wv path,.bgart .dm,.breath i{animation:none!important}}
+/* kirish */
+.gate{position:fixed;inset:0;z-index:60;background:var(--bg);overflow:auto;display:grid;place-items:center;padding:18px}
+.gate[hidden],.calm[hidden]{display:none}
+.gcard{position:relative;z-index:2;width:min(460px,100%);padding:26px 22px;text-align:center;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(8px)}
+.gcard h2{font:700 clamp(26px,7vw,34px)/1.15 var(--f-disp);margin:10px 0 6px}
+.gcard p{color:var(--mut)}
+.breath{position:relative;width:96px;height:96px;margin:6px auto 0;display:grid;place-items:center}
+.breath i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 55%,transparent),color-mix(in srgb,var(--acc) 8%,transparent) 70%);animation:breathe 10s ease-in-out infinite}
+.breath i:nth-child(2){animation-delay:-3.3s;opacity:.6}
+.breath svg{position:relative;width:44px;height:44px}
+@keyframes breathe{0%,100%{transform:scale(.62)}40%{transform:scale(1)}55%{transform:scale(1)}}
+.gform{display:flex;flex-direction:column;gap:12px;margin-top:18px;text-align:left}
+.gform label{font-weight:600;font-size:13.5px;display:flex;flex-direction:column;gap:6px}
+.gform input,.gform select,.fld{font:inherit;padding:12px 13px;border:1px solid var(--line);border-radius:11px;background:var(--paper);color:var(--ink);min-height:46px;width:100%}
+.gform .btn.pri{min-height:48px;font-size:16px}
+.gform small{color:var(--mut);font-weight:400}
+.who{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:4px 12px 4px 4px;font-weight:600;min-height:40px}
+.who b{width:32px;height:32px;border-radius:50%;background:var(--acc);color:var(--accfg);display:grid;place-items:center;font:700 15px var(--f-disp)}
+.who span{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hello{margin:12px 2px 0;color:var(--mut);font-size:14px}
+.hello b{color:var(--ink)}
+.calm{position:fixed;inset:0;z-index:70;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);display:grid;place-items:center;text-align:center;padding:20px}
+.calm .breath{width:min(60vw,220px);height:min(60vw,220px)}
+.calm .breath i{animation-duration:12s}
+#calmT{font:700 26px var(--f-disp);margin:18px 0 4px}
+/* trio */
+.trio{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.trio h3{font:700 18px var(--f-disp)}
+.tri{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:12px;border-left-width:5px}
+.tri.a{border-left-color:var(--acc)}.tri.b{border-left-color:var(--cob)}.tri.c{border-left-color:#c8892f}
+.tri .n{grid-row:1/3;font:700 28px/1 var(--f-disp);min-width:46px;text-align:center}
+.tri .n small{display:block;font:500 11px var(--f-ui);color:var(--mut);margin-top:3px}
+.tri h4{margin:0;font:700 15px var(--f-ui)}
+.tri h4 em{font-style:normal;font-weight:600;color:var(--mut);font-size:12.5px;margin-left:6px}
+.tri ul{grid-column:1/-1;margin:6px 0 0;padding-left:18px;color:var(--mut);font-size:13.5px}
+/* yozma test */
+.tq{padding:18px;display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.tq .qt{font:700 clamp(19px,4.6vw,25px)/1.3 var(--f-disp);white-space:pre-line}
+.tq .meta{display:flex;justify-content:space-between;color:var(--mut);font-size:13px}
+.pbar{height:6px;border-radius:4px;background:var(--line);overflow:hidden}.pbar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.fb{padding:11px 13px;border-radius:11px;border:1px solid var(--line);border-left-width:5px}
+.fb.ok{border-left-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--paper))}
+.fb.no{border-left-color:var(--err);background:color-mix(in srgb,var(--err) 9%,var(--paper))}
+.kinds{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.kinds label{display:flex;gap:9px;align-items:center;border:1px solid var(--line);background:var(--paper);border-radius:11px;padding:11px 12px;min-height:46px;font-weight:600}
+.cust{padding:14px 16px;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cust .fld{flex:1 1 240px;width:auto}
+.prof{padding:14px 16px;margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.prof .who{padding:0;border:0;background:none}
+.prof .who b{width:48px;height:48px;font-size:22px}
+
+.exp{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.exp h3{font:700 18px var(--f-disp)}
+.crit{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;align-items:center}
+.crit b{font-weight:600}.crit span{font:500 13px var(--f-mono);color:var(--mut)}
+.steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.steps li b{color:var(--acc)}
+.pos{margin:0;padding-left:18px;color:var(--mut);font-size:13.5px}
+.adm .tbl{display:flex;flex-direction:column}
+.arow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:10px 12px;border-top:1px solid var(--line)}
+.arow:first-child{border-top:0}.arow .n{font-weight:700}.arow .d{grid-column:1/-1;color:var(--mut);font-size:12.5px}
+.dist{display:flex;flex-direction:column;gap:6px;padding:14px 16px;margin-top:12px}
+.dist .rw{display:grid;grid-template-columns:60px 1fr 34px;gap:8px;align-items:center;font-size:13px}
+.dist .bar{grid-column:auto}
+.seg{display:flex;gap:6px;margin:10px 0}
+</style>
+
+<div class="bgart" aria-hidden="true"><div class="bl b1"></div><div class="bl b2"></div><div class="bl b3"></div><div class="dm d1"></div><div class="dm d2"></div>
+<svg class="wv" viewBox="0 0 1440 200" preserveAspectRatio="none"><path d="M0 120 C240 60 480 170 720 110 C960 50 1200 160 1440 100 L1440 200 L0 200Z" fill="color-mix(in srgb,var(--acc) 14%,transparent)"/><path d="M0 150 C300 100 520 190 780 140 C1040 90 1240 180 1440 135 L1440 200 L0 200Z" fill="color-mix(in srgb,var(--cob) 12%,transparent)"/></svg></div>
+<div class="gate" id="gate" hidden>
+ <div class="bgart" aria-hidden="true"><div class="bl b1"></div><div class="bl b2"></div><div class="bl b3"></div><div class="dm d1"></div><div class="dm d2"></div><svg class="wv" viewBox="0 0 1440 200" preserveAspectRatio="none"><path d="M0 120 C240 60 480 170 720 110 C960 50 1200 160 1440 100 L1440 200 L0 200Z" fill="color-mix(in srgb,var(--acc) 14%,transparent)"/><path d="M0 150 C300 100 520 190 780 140 C1040 90 1240 180 1440 135 L1440 200 L0 200Z" fill="color-mix(in srgb,var(--cob) 12%,transparent)"/></svg></div>
+ <form class="card gcard" id="gForm" autocomplete="off">
+  <div class="breath"><i></i><i></i><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="9" fill="var(--acc)"/><path d="M20 7l9 13-9 13-9-13z" fill="none" stroke="var(--accfg)" stroke-width="2.4"/><path d="M20 14l4.5 6-4.5 6-4.5-6z" fill="var(--err)"/></svg></div>
+  <h2>Esse Ustaxonasiga xush kelibsiz</h2>
+  <p>Chuqur nafas oling. Bu yerda shoshilmasdan, xotirjam yozasiz. Esseni uch ustoz tekshiradi.</p>
+  <div class="gform">
+   <button class="btn" id="gTg" type="button" hidden style="min-height:48px"></button>
+   <small id="gOr" hidden style="text-align:center">yoki ism-familiyangizni yozing</small>
+   <label>Ismingiz<input id="gName" required maxlength="40" placeholder="Masalan: Dilnoza" autocomplete="given-name"></label>
+   <label>Familiyangiz<input id="gSur" maxlength="40" placeholder="Masalan: Karimova" autocomplete="family-name"></label>
+   <label>Viloyat <small>(ixtiyoriy)</small><select id="gReg"><option value="">Tanlang</option><option>Toshkent shahri</option><option>Toshkent viloyati</option><option>Andijon</option><option>Buxoro</option><option>Fargʻona</option><option>Jizzax</option><option>Xorazm</option><option>Namangan</option><option>Navoiy</option><option>Qashqadaryo</option><option>Qoraqalpogʻiston</option><option>Samarqand</option><option>Sirdaryo</option><option>Surxondaryo</option></select></label>
+   <label>Maqsadingiz (sertifikat darajasi)<select id="gGoal"><option>B</option><option>B+</option><option selected>A</option><option>A+</option></select></label>
+   <button class="btn pri" type="submit">Boshlash</button>
+   <small id="gNote">Maʼlumotlaringiz faqat shu qurilmada saqlanadi.</small>
+  </div>
+ </form>
+</div>
+<div class="calm" id="calm" hidden><div><div class="breath"><i></i><i></i></div><div id="calmT">Nafas oling</div><p class="note">Esse oldidan yoki charchaganda 1 daqiqa shuncha yetadi.</p><div class="acts" style="justify-content:center"><button class="btn pri" id="calmX" type="button">Yozishga qaytish</button></div></div></div>
+<div class="strip"></div>
+<div class="wrap">
+  <header class="top">
+    <div class="brand" id="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="9" fill="var(--acc)"/><path d="M20 7l9 13-9 13-9-13z" fill="none" stroke="var(--accfg)" stroke-width="2.4"/><path d="M20 14l4.5 6-4.5 6-4.5-6z" fill="var(--err)"/></svg>
+      <div><b>Esse Ustaxonasi</b><small>Milliy sertifikat yozma ishiga tayyorgarlik</small></div>
+    </div>
+    <button class="who" id="who" type="button" aria-label="Profil"><b id="whoI">?</b><span id="whoN"></span></button>
+    <nav class="tabs" role="tablist" aria-label="Boʻlimlar">
+      <button class="tab" role="tab" id="tab-write" data-tab="write" aria-selected="true">Yozish</button>
+      <button class="tab" role="tab" id="tab-topics" data-tab="topics" aria-selected="false">Mavzular</button>
+      <button class="tab" role="tab" id="tab-test" data-tab="test" aria-selected="false">Yozma test</button>
+      <button class="tab" role="tab" id="tab-me" data-tab="me" aria-selected="false">Natijalarim</button>
+      <button class="tab" role="tab" id="tab-admin" data-tab="admin" aria-selected="false" hidden>Admin</button>
+    </nav>
+  </header>
+
+  <section id="v-write" class="view">
+    <div class="card topicbar">
+      <div>
+        <span class="tag" id="tCat"></span>
+        <h1 id="tTitle"></h1>
+      </div>
+      <div class="tb-r">
+        <button class="btn" id="bPlan" type="button" aria-expanded="false">Reja va iboralar</button>
+        <button class="btn" id="bRand" type="button">Tasodifiy mavzu</button>
+        <button class="btn" id="bChange" type="button">Mavzular</button>
+        <button class="btn" id="bOwn" type="button">Oʻz mavzum</button>
+        <button class="btn" id="bCalm" type="button">Nafas</button>
+      </div>
+    </div>
+    <p class="hello" id="hello"></p>
+    <div class="card plan" id="plan" hidden>
+      <div><h3>Reja uchun savollar</h3><ul id="planQ"></ul></div>
+      <div><h3>Foydali iboralar (bosib qoʻshing)</h3><div class="chips" id="phr"></div></div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <div class="edbar">
+          <div class="ring" id="ring"><svg viewBox="0 0 62 62" aria-hidden="true"><circle class="bg" cx="31" cy="31" r="26"/><circle class="fg" id="ringFg" cx="31" cy="31" r="26" stroke-dasharray="163.36" stroke-dashoffset="163.36"/></svg><span id="ringN">0</span></div>
+          <div class="cnt"><b id="wl">0 / 100 soʻz</b><small id="ws">Kamida 100 soʻz kerak</small></div>
+          <div class="sp"></div>
+          <div class="timer">
+            <label for="tmSel" class="note">Vaqt</label>
+            <select id="tmSel"><option value="0">Cheksiz</option><option value="20">20 daqiqa</option><option value="30">30 daqiqa</option><option value="45">45 daqiqa</option></select>
+            <span id="clock" aria-live="off">--:--</span>
+          </div>
+        </div>
+        <div class="edwrap">
+          <div id="mirror" aria-hidden="true"></div>
+          <textarea id="ta" spellcheck="false" autocomplete="off" autocapitalize="sentences" placeholder="Esseni shu yerdan yozing. Kirish, asosiy qism va xulosadan iborat 3 ta xatboshi qiling…" aria-label="Esse matni"></textarea>
+        </div>
+        <div class="acts">
+          <button class="btn pri" id="bSave" type="button">Natijani saqlash</button>
+          <button class="btn" id="bSend" type="button" hidden>Adminga yuborish</button>
+          <button class="btn" id="bFix" type="button">Imlo va tinishni tuzatish</button>
+          <button class="btn" id="bAI" type="button" hidden>Chuqur tekshiruv (Claude)</button>
+          <button class="btn" id="bUndo" type="button" hidden>Bekor qilish</button>
+          <button class="btn" id="bClear" type="button">Tozalash</button>
+        </div>
+      </div>
+
+      <aside class="rep" aria-label="Tekshiruv natijasi">
+        <div class="card scorecard">
+          <div><div class="big" id="sc">—</div></div>
+          <div style="min-width:0;flex:1">
+            <div id="scT" style="font-weight:600">Baholash kamida 100 soʻzdan keyin boshlanadi</div>
+            <span class="lvl" id="lv" hidden></span>
+            <p class="note" style="margin-top:6px">Bu avtomatik dastlabki baho. Rasmiy imtihon bahosi emas.</p>
+          </div>
+        </div>
+        <div class="card trio" id="trio"></div>
+        <div class="card exp" id="expert"></div>
+        <div class="card rub" id="rub"></div>
+        <div class="card facts" id="facts"></div>
+        <div class="card" id="issCard">
+          <div class="ihead" id="ihead"></div>
+          <ul class="ilist" id="ilist"></ul>
+        </div>
+        <div class="card"><details class="sents" id="sentsD"><summary>Gaplar tuzilishi tahlili</summary><div id="sents"></div></details></div>
+        <div class="card ai" id="aiCard" hidden></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="v-topics" class="view" hidden>
+    <div class="thead">
+      <h2>Mavzular: <span id="tCount"></span> ta</h2>
+      <p class="note">Milliy sertifikat yozma ishi yoʻnalishlariga mos mavzular: vatan, til, taʼlim, oila, yoshlar, ilm-fan, tabiat, salomatlik, axloq va mehnat.</p>
+      <input class="search" id="tq" type="search" placeholder="Mavzu qidirish…" aria-label="Mavzu qidirish">
+      <div class="chips" id="cats"></div>
+    </div>
+    <form class="card cust" id="cust"><b style="flex:1 0 100%">Oʻz mavzuingizni yozing</b><input class="fld" id="custIn" maxlength="120" placeholder="Masalan: Mening mahallam taqdiri" aria-label="Oʻz mavzu"><button class="btn pri" type="submit">Qoʻshish va yozish</button></form>
+    <div class="tgrid" id="tgrid"></div>
+  </section>
+
+  <section id="v-test" class="view" hidden>
+    <div class="thead"><h2>Yozma test</h2><p class="note">Javobni oʻzingiz yozasiz: imlo, qoʻshimcha, atama, antonim. Natija darhol tekshiriladi.</p></div>
+    <div id="tBody"></div>
+  </section>
+
+  <section id="v-admin" class="view adm" hidden>
+    <div class="thead"><h2>Admin: natijalar</h2><p class="note" id="aNote"></p></div>
+    <div class="seg" id="aSeg"></div>
+    <div class="stats" id="aStats"></div>
+    <div class="card dist" id="aDist"></div>
+    <div class="acts"><input class="search" id="aQ" type="search" placeholder="Ism yoki mavzu boʻyicha qidirish…" aria-label="Qidirish"><button class="btn" id="aCsv" type="button">CSV nusxalash</button><button class="btn" id="aOut" type="button">Admin rejimidan chiqish</button></div>
+    <div class="card hist adm" style="margin-top:12px"><div class="tbl" id="aTbl"></div></div>
+  </section>
+
+  <section id="v-me" class="view" hidden>
+    <div class="thead"><h2>Natijalarim</h2><p class="note">Natijalar faqat shu qurilmadagi brauzerda saqlanadi.</p></div>
+    <div class="card prof" id="prof"></div>
+    <div class="stats" id="stats"></div>
+    <div class="card hist" id="sparkCard" hidden><svg class="spark" id="spark" viewBox="0 0 300 90" preserveAspectRatio="none" aria-label="Ballar dinamikasi"></svg></div>
+    <div class="card hist" id="hist"></div>
+    <div class="acts"><button class="btn" id="bHistClear" type="button">Natijalarni oʻchirish</button></div>
+  </section>
+
+  <p class="foot">Tekshiruv imlo, tinish belgilari, gap tuzilishi, takrorlar va xatboshi tuzilishini koʻradi. Fikr mazmuni va mavzuga muvofiqlik «Chuqur tekshiruv (Claude)» orqali baholanadi. Yakuniy qarorni oʻqituvchi bilan ham tekshirib koʻring.</p>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== TAHLIL (DOMsiz) ===== */
+var APOS_ANY = "'’`‘´ʹ";
+var WORD_RE = /[\p{L}\p{N}][\p{L}\p{N}ʻʼ'’`‘´ʹ\-]*/gu;
+var ABBR = new Set(["v","b","h","k","m","y","yy","sh","t","q","kv","km","sm","mln","mlrd","prof","dots","akad","tel","jum","mas","qarang","s","r","n","d","f","g","j","l","p","x","z"]);
+var CONNECT = ["birinchidan","ikkinchidan","uchinchidan","avvalo","shuningdek","bundan tashqari","shu bois","shuning uchun","natijada","demak","xulosa qilib","umuman","ayniqsa","masalan","misol uchun","lekin","ammo","biroq","chunki","zero","binobarin","garchi","oxir-oqibat","shunday qilib","bir tomondan","ikkinchi tomondan","aksincha","vaholanki","nihoyat","jumladan","boisi"];
+var CONCL = ["xulosa","demak","shunday qilib","oxir-oqibat","umuman olganda","yakunida","natijada"];
+var MISSPELL = {
+ xozir:"hozir", xamma:"hamma", xamisha:"hamisha", xech:"hech", xaqiqat:"haqiqat", xar:"har", xayot:"hayot",
+ xalol:"halol", xalollik:"halollik", xurmat:"hurmat", xunar:"hunar", hizmat:"xizmat", yahshi:"yaxshi",
+ extimol:"ehtimol", insonyat:"insoniyat", jamiyyat:"jamiyat", ahmiyat:"ahamiyat", shuninguchun:"shuning uchun",
+ uchunki:"chunki", xarbir:"har bir", masuliyat:"masʼuliyat", malumot:"maʼlumot", manaviyat:"maʼnaviyat",
+ talim:"taʼlim", etibor:"eʼtibor", etirof:"eʼtirof", oqituvchi:"oʻqituvchi", ozbek:"oʻzbek",
+ ozbekiston:"Oʻzbekiston", togri:"toʻgʻri", bolsa:"boʻlsa", boladi:"boʻladi", bolishi:"boʻlishi",
+ ozi:"oʻzi", ozim:"oʻzim", dostlik:"doʻstlik", xalq1:"xalq"
+};
+var PROPER = {ozbekiston:"Oʻzbekiston", toshkent:"Toshkent", samarqand:"Samarqand", buxoro:"Buxoro", xiva:"Xiva", andijon:"Andijon", namangan:"Namangan", fargona:"Fargʻona", temur:"Temur", ulugbek:"Ulugʻbek", navoiy:"Navoiy", bobur:"Bobur", fitrat:"Fitrat", qodiriy:"Qodiriy", cholpon:"Choʻlpon"};
+var REP_STOP = new Set(["bolib","boladi","bolishi","bolgan","bolsa","qilish","qilib","qilgan","bilan","uchun","boshqa","shunday","shuning","bunday","qanday","ularning","bizning","hamma","barcha","ayniqsa","boshqalar","hamda","chunki","qilishi","kerak","mumkin","hozir","boladigan","qilinadi","qiladi","qilgan","bolishi","orqali","albatta","yana","masalan","lekin","degan","uning","mening","sizning","kabi","bilan"]);
+var TOPIC_STOP = new Set(["mening","uning","bizning","nima","qanday","bolishi","kerak","uchun","bilan","bugungi","bormi","oladimi","boladi","bolsa","kabi","ular","yoshi","chegarasi"]);
+var PRED_SUF = ["di","ti","dim","tim","dik","tik","adi","ydi","gan","kan","qan","ib","ar","ur","ir","moqda","yapti","yotir","yotgan","ayotgan","ajak","dir","tir","man","san","miz","siz","edi","ekan","emas","kerak","mumkin","lozim","zarur","bor","yoq","ish","lik","lar","sa","ing","gin","ngiz"];
+
+function norm(w){ return w.toLowerCase().replace(/[ʻʼ'’`‘´ʹ]/g,""); }
+function isUp(ch){ return ch !== ch.toLowerCase() && ch === ch.toUpperCase(); }
+function isLow(ch){ return ch !== ch.toUpperCase(); }
+function cap1(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+function tokenize(text){
+  var out=[], m; WORD_RE.lastIndex=0;
+  while((m=WORD_RE.exec(text))){
+    var w=m[0], e=m.index+w.length;
+    var t=w.replace(/[\-'’`‘´ʹ]+$/,"");
+    if(!t) continue;
+    out.push({w:t, s:m.index, e:m.index+t.length});
+    WORD_RE.lastIndex = Math.max(WORD_RE.lastIndex, e);
+  }
+  return out;
+}
+
+function splitSentences(text){
+  var res=[], n=text.length, i=0, start=0;
+  function push(a,b){
+    var raw=text.slice(a,b), l=raw.length-raw.replace(/^\s+/,"").length;
+    var r=raw.replace(/\s+$/,"");
+    if(r.trim().length) res.push({s:a+l,e:a+r.length,t:text.slice(a+l,a+r.length)});
+  }
+  while(i<n){
+    var c=text[i];
+    if(c==="\n"){ push(start,i); start=i+1; i++; continue; }
+    if(c==="."||c==="!"||c==="?"||c==="…"){
+      var j=i; while(j<n && /[.!?…]/.test(text[j])) j++;
+      while(j<n && /["»”’)\]]/.test(text[j])) j++;
+      var k=j; while(k<n && (text[k]===" "||text[k]==="\t")) k++;
+      var nxt=text[k];
+      var isEnd = k>=n || nxt==="\n";
+      if(!isEnd && k>j){
+        if(isLow(nxt) && /[a-zA-ZЀ-ӿ]/.test(nxt)){
+          var pw=(text.slice(start,i).match(/([\p{L}\p{N}]+)$/u)||[])[1]||"";
+          if(c==="." && (ABBR.has(pw.toLowerCase()) || pw.length<=2)) isEnd=false; else isEnd=true;
+        } else isEnd=true;
+      }
+      if(isEnd){ push(start,j); start=j; }
+      i=j; continue;
+    }
+    i++;
+  }
+  push(start,n);
+  return res;
+}
+
+function paragraphsOf(text){
+  var res=[], re=/[^\n]+/g, m;
+  while((m=re.exec(text))){ if(m[0].trim()) res.push({s:m.index,e:m.index+m[0].replace(/\s+$/,"").length,t:m[0].trim()}); }
+  return res;
+}
+
+function analyze(text, topic){
+  var toks=tokenize(text), words=toks.length;
+  var issues=[]; var sents=splitSentences(text); var paras=paragraphsOf(text);
+  var cyr=(text.match(/[\u0400-\u04FF]/g)||[]).length, lat=(text.match(/\p{L}/gu)||[]).length;
+  if(lat>0 && cyr/lat>0.3){
+    return {words:words,chars:text.length,sentences:sents.length,paragraphs:paras.length,cyrillic:true,
+      issues:[{cat:"Imlo",sev:"err",s:0,e:Math.min(text.length,40),msg:"Matn kirill yozuvida. Esse lotin yozuvida yozilishi kerak.",fix:null}],
+      sentInfo:[],stats:{avg:0,sd:0,ttr:0,uniq:0,simple:0,complex:0,conn:[],hasConcl:false,topicHit:null,longN:0,noPred:0,rep:0,errCount:1,warnCount:0},
+      rubric:null,score:null,level:null};
+  }
+  function add(cat,sev,s,e,msg,fix){ issues.push({cat:cat,sev:sev,s:s,e:e,msg:msg,fix:(fix===undefined?null:fix)}); }
+  function addA(s,e,msg,fix){ add("Imlo","warn",s,e,msg,fix); issues[issues.length-1].apos=true; }
+  var m, re;
+
+  // --- Apostrof belgilari
+  for(var i=0;i<text.length;i++){
+    var c=text[i];
+    var isBad = APOS_ANY.indexOf(c)>=0;
+    if(!(isBad || c==="ʻ" || c==="ʼ")) continue;
+    var pv=text[i-1]||"", nx=text[i+1]||"";
+    if(!/\p{L}/u.test(pv) || !/\p{L}/u.test(nx)) continue;
+    var og=/[oOgG]/.test(pv);
+    var wst=i-1; while(wst>0 && /[\p{L}ʻʼ]/u.test(text[wst-1])) wst--;
+    var afterTxt=text.slice(i+1,i+8).toLowerCase();
+    if(isBad && !og && !/[aeiouAEIOU]/.test(pv) && isUp(text.charAt(wst)) && /^(da|dan|ni|ning|ga|ka|qa|lar|dagi|day|cha|miz)(?![\p{L}])/u.test(afterTxt)){
+      addA(i,i+1,"Atoqli otga qoʻshimcha apostrofsiz qoʻshiladi (Toshkentda).","");
+      continue;
+    }
+    if(isBad){
+      addA(i,i+1, og? "«"+pv+"ʻ» yozilishi kerak: oʻ va gʻ harflarida ʻ (ayirish belgisi) ishlatiladi." : "Tutuq belgisi ʼ shaklida yoziladi (maʼno, maʼlumot).", og?"ʻ":"ʼ");
+    } else if(c==="ʼ" && og){
+      addA(i,i+1,"«"+pv+"ʼ» emas, «"+pv+"ʻ» yoziladi (oʻ, gʻ).","ʻ");
+    } else if(c==="ʻ" && !og){
+      addA(i,i+1,"Bu oʻrinda tutuq belgisi ʼ boʻlishi kerak (maʼno).","ʼ");
+    }
+  }
+  // --- Imlo lugʻati va bosh harf
+  var SUFRE=/^(da|dan|ni|ning|ga|ka|qa|lar|larni|larda|dagi|day|cha|miz|imiz|im|si|i|lik)?$/;
+  for(var t=0;t<toks.length;t++){
+    var tk=toks[t], raw=tk.w, low=raw.toLowerCase(), hit=false;
+    if(!/[ʻʼ'’`‘´ʹ\-]/.test(raw) && MISSPELL[low]){
+      var fx=MISSPELL[low]; if(isUp(raw.charAt(0)) && !/[A-Z]/.test(fx.charAt(0))) fx=cap1(fx);
+      add("Imlo","err",tk.s,tk.e,"Imlo xatosi: «"+raw+"» oʻrniga «"+fx+"» yoziladi.",fx); hit=true;
+    }
+    if(hit || isUp(raw.charAt(0))) continue;
+    var nn=norm(raw);
+    for(var key in PROPER){
+      if(nn.indexOf(key)===0 && SUFRE.test(nn.slice(key.length))){
+        var cnt=0, cut=0; while(cut<raw.length && cnt<key.length){ if(!/[ʻʼ'’`‘´ʹ]/.test(raw.charAt(cut))) cnt++; cut++; }
+        var pre=PROPER[key];
+        add("Imlo","err",tk.s,tk.s+cut,"Atoqli ot bosh harf bilan yoziladi: «"+pre+"».",pre);
+        break;
+      }
+    }
+  }
+  // --- Tinish va boʻshliq
+  re=/[ \t]{2,}/g; while((m=re.exec(text))) add("Tinish","err",m.index,m.index+m[0].length,"Ortiqcha boʻshliq: bitta probel yetarli."," ");
+  re=/(?<=\S)[ \t]+(?=[,.;:!?])/g; while((m=re.exec(text))) add("Tinish","err",m.index,m.index+m[0].length,"Tinish belgisidan oldin probel qoʻyilmaydi.","");
+  re=/[,;:!?](?=\p{L})/gu; while((m=re.exec(text))) add("Tinish","err",m.index+1,m.index+1,"«"+m[0]+"» dan keyin probel kerak."," ");
+  re=/(\p{L}{3,})\.(?=\p{L})/gu; while((m=re.exec(text))) add("Tinish","err",m.index+m[1].length+1,m.index+m[1].length+1,"Nuqtadan keyin probel kerak."," ");
+  re=/[!?]{2,}|,{2,}|\.{4,}|(?<!\.)\.\.(?!\.)/g;
+  while((m=re.exec(text))){ var r1=m[0].charAt(0)===","?",":(m[0].charAt(0)==="."?(m[0].length>3?"…":"."):m[0].charAt(0)); add("Tinish","warn",m.index,m.index+m[0].length,"Tinish belgisi ortiqcha takrorlangan.",r1); }
+  re=/(?<=\p{L}) - (?=\p{L})/gu; while((m=re.exec(text))) add("Tinish","warn",m.index,m.index+m[0].length,"Tire (—) oʻrnida defis ishlatilgan."," — ");
+  var qn=0; re=/"/g; while((m=re.exec(text))){ add("Tinish","warn",m.index,m.index+1,"Qoʻshtirnoq sifatida « » ishlatish tavsiya etiladi.",(qn%2===0)?"«":"»"); qn++; }
+  re=/(\p{L})([ \t]+)(lekin|ammo|biroq|chunki)(?=[\s,])/giu;
+  while((m=re.exec(text))) add("Tinish","warn",m.index+1,m.index+1+m[2].length,"«"+m[3]+"» bogʻlovchisidan oldin vergul qoʻyiladi.",", ");
+  // ketma-ket takror
+  for(var q=0;q+1<toks.length;q++){
+    var a=toks[q], b=toks[q+1];
+    if(a.w.length>1 && norm(a.w)===norm(b.w) && /^[ \t]+$/.test(text.slice(a.e,b.s)) && !/-/.test(a.w)){
+      var prevI=issues.length?issues[issues.length-1]:null;
+      if(prevI && prevI.dupEnd===a.e){ prevI.e=b.e; prevI.dupEnd=b.e; prevI.msg="«"+b.w+"» soʻzi ketma-ket takrorlangan."; }
+      else { add("Lugʻat","warn",a.e,b.e,"«"+b.w+"» soʻzi ketma-ket ikki marta yozilgan.",""); issues[issues.length-1].dupEnd=b.e; }
+    }
+  }
+  // --- Gaplar
+  var sentInfo=[], lens=[], simple=0, complexN=0, longN=0, noPred=0;
+  for(var si=0;si<sents.length;si++){
+    var S=sents[si], st=S.t;
+    var lead=st.search(/\p{L}|\p{N}/u);
+    var firstCh = lead>=0? st.charAt(lead):"";
+    if(firstCh && isLow(firstCh) && !/\p{N}/u.test(firstCh)){
+      add("Tinish","err",S.s+lead,S.s+lead+1,"Gap bosh harf bilan boshlanadi.",firstCh.toUpperCase());
+    }
+    var stoks=toks.filter(function(x){return x.s>=S.s && x.e<=S.e;});
+    var wc=stoks.length; lens.push(wc);
+    var hasC = /,/.test(st) || /\b(lekin|ammo|biroq|chunki|agar|garchi|shuning uchun|zero|yoki)\b/i.test(st);
+    var kind = /[?]/.test(st)?"soʻroq":(/[!]/.test(st)?"undov":"darak");
+    var struct = hasC?"murakkabroq":"sodda"; if(hasC) complexN++; else simple++;
+    var hasPred = stoks.some(function(x){ var n=norm(x.w); return PRED_SUF.some(function(sf){return n.length>sf.length && n.slice(-sf.length)===sf;}) || n==="bor"||n==="yoq"||n==="kerak"; });
+    if(wc>35){ longN++; add("Gap","warn",S.s,S.e,"Gap juda uzun ("+wc+" soʻz): fikrni ikkiga ajratsangiz, oʻqish osonlashadi."); }
+    else if(wc>=1 && wc<3 && S.t.length>1 && paras.length>0 && !(paras.length&&paras.some(function(p){return p.s===S.s&&p.e===S.e;}))) add("Gap","info",S.s,S.e,"Juda qisqa gap: fikr toʻliq ifodalanmagan boʻlishi mumkin.");
+    if(wc>=4 && !hasPred){ noPred++; add("Gap","info",S.s,S.e,"Kesim (ish-harakat yoki holat bildiruvchi soʻz) aniq koʻrinmayapti: gap tugallanganligini tekshiring."); }
+    sentInfo.push({s:S.s,e:S.e,wc:wc,kind:kind,struct:struct,first:stoks.length?norm(stoks[0].w):""});
+  }
+  // bir xil boshlanish
+  for(var z=0;z+2<sentInfo.length;z++){
+    if(sentInfo[z].first && sentInfo[z].first===sentInfo[z+1].first && sentInfo[z].first===sentInfo[z+2].first && sentInfo[z].first.length>1)
+      add("Gap","info",sentInfo[z].s,sentInfo[z+2].e,"Uch gap ketma-ket bir xil soʻz bilan boshlangan: ifoda xilma-xilligini oshiring.");
+  }
+  // --- Xatboshi oxiridagi tinish
+  for(var p=0;p<paras.length;p++){
+    var P=paras[p]; var last=P.t.charAt(P.t.length-1);
+    var wcP=toks.filter(function(x){return x.s>=P.s && x.e<=P.e;}).length;
+    if(wcP>=6 && !/[.!?…»"”)]/.test(last)) add("Tinish","err",P.e,P.e,"Xatboshi tinish belgisisiz tugagan.",".");
+  }
+  // --- Takrorlar
+  var stopTopic=new Set(); var tWords = topic? tokenize(topic):[];
+  tWords.forEach(function(x){ var n=norm(x.w); if(n.length>=4) stopTopic.add(n.slice(0,4)); });
+  var groups={};
+  toks.forEach(function(x){ var n=norm(x.w); if(n.length<6||REP_STOP.has(n)) return; var k=n.slice(0,5); if(stopTopic.has(n.slice(0,4))) return; (groups[k]=groups[k]||[]).push(x); });
+  var repList=[]; Object.keys(groups).forEach(function(k){ if(groups[k].length>=4) repList.push(groups[k]); });
+  repList.sort(function(a,b){return b.length-a.length;}).slice(0,4).forEach(function(g){
+    var forms=Array.from(new Set(g.map(function(x){return x.w.toLowerCase();}))).slice(0,3).join(", ");
+    add("Lugʻat","warn",g[0].s,g[0].e,"«"+forms+"» "+g.length+" marta takrorlangan: sinonim yoki boshqa ifodadan foydalaning.");
+  });
+  // --- Bogʻlovchilar, xulosa, mavzu
+  var low=text.toLowerCase().replace(/[ʻʼ'’`‘´ʹ]/g,"");
+  var connFound=[]; CONNECT.forEach(function(c){ var cc=c.replace(/[ʻʼ'’`‘´ʹ]/g,""); if(low.indexOf(cc)>=0) connFound.push(c); });
+  var lastPara=paras.length? paras[paras.length-1].t.toLowerCase().replace(/[ʻʼ'’`‘´ʹ]/g,""):"";
+  var hasConcl = CONCL.some(function(c){return lastPara.indexOf(c)>=0;});
+  var topicHit=null;
+  if(topic){
+    var stems=[]; tWords.forEach(function(x){ var n=norm(x.w); if(n.length>=5 && !TOPIC_STOP.has(n)) stems.push(n.slice(0,4)); });
+    if(stems.length){ topicHit = toks.some(function(x){ var n=norm(x.w); return stems.some(function(sm){return n.indexOf(sm)===0;}); }); }
+  }
+  // --- Professional qoʻshimcha tekshiruvlar
+  var pro={thesis:null,examples:0,counter:0,rhet:0,coll:0,cliche:0,paraW:[],intro:0,concl:0,avgWL:0,longW:0,juda:0,excl:0};
+  (function(){
+    var m, re;
+    // qavs va qoʻshtirnoq muvozanati
+    var oq=(text.match(/«/g)||[]).length, cq=(text.match(/»/g)||[]).length;
+    if(oq!==cq){ var ix=text.lastIndexOf(oq>cq?"«":"»"); add("Tinish","err",ix,ix+1,oq>cq?"Qoʻshtirnoq ochilgan, lekin yopilmagan (» kerak).":"Qoʻshtirnoq yopilgan, lekin ochilmagan (« kerak)."); }
+    var op=(text.match(/\(/g)||[]).length, cp=(text.match(/\)/g)||[]).length;
+    if(op!==cp){ var jx=text.lastIndexOf(op>cp?"(":")"); add("Tinish","err",jx,jx+1,op>cp?"Qavs ochilgan, lekin yopilmagan.":"Qavs yopilgan, lekin ochilmagan."); }
+    // raqam + qoʻshimcha
+    re=/\b(\d+)(ta|nafar|dona|ming|million|milliard)\b/gi; while((m=re.exec(text))){ add("Imlo","warn",m.index+m[1].length,m.index+m[1].length,"Raqamdan keyin sanoq soʻzi alohida yoziladi: «"+m[1]+" "+m[2]+"».", " "); }
+    re=/\b(\d{3,4})(yil|yilda|yilgacha|yildan)\b/gi; while((m=re.exec(text))){ add("Imlo","warn",m.index+m[1].length,m.index+m[1].length,"Yil nomida chiziqcha kerak: «"+m[1]+"-"+m[2]+"».","-"); }
+    // soʻzlashuv va adabiy boʻlmagan shakllar
+    var COLL={"shunaqa":"shunday","bunaqa":"bunday","qanaqa":"qanday","shundoq":"shunday","bundoq":"bunday","xullas":"demak","qisqasi":"demak","kerakmas":"kerak emas","bomas":"boʻlmaydi","bomaydi":"boʻlmaydi","nimadir":"biror narsa"};
+    var ALL=/[\p{L}ʻʼ'’`‘´ʹ]+/gu; var cnt={};
+    toks.forEach(function(x){ var n=x.w.toLowerCase().replace(/[ʻʼ'’`‘´ʹ]/g,function(c){return "ʻ";}); var key=n.replace(/ʻ/g,""); 
+      Object.keys(COLL).forEach(function(k){ if(key===k.replace(/[ʻʼ]/g,"")){ pro.coll++; add("Uslub","warn",x.s,x.e,"Soʻzlashuv shakli: yozma ishda «"+COLL[k]+"» deyiladi.",null); } });
+      cnt[key]=(cnt[key]||0)+1; });
+    // shablon (kliše) iboralar
+    var CL=["hech kimga sir emaski","hech kimga sir emas","hech kim inkor eta olmaydi","bugungi kunda","hozirgi kunda","tarixdan maʼlumki","maʼlumki","bir soʻz bilan aytganda"];
+    var lowT=text.toLowerCase().replace(/[ʻʼ'’`‘´ʹ]/g,"ʼ");
+    var taken=[]; CL.sort(function(a,b){return b.length-a.length;});
+    CL.forEach(function(c){ var cc=c.replace(/[ʻʼ'’`‘´ʹ]/g,"ʼ"); var from=0,ii; while((ii=lowT.indexOf(cc,from))>=0){ from=ii+c.length; var ov=taken.some(function(t){return ii<t[1]&&ii+c.length>t[0];}); if(ov) continue; taken.push([ii,ii+c.length]); pro.cliche++; add("Uslub","info",ii,ii+c.length,"Shablon ibora: oʻz fikringiz bilan, aniqroq ifodalang.",null); if(pro.cliche>6) break; } });
+    // «juda» koʻp, undov koʻp
+    pro.juda=cnt["juda"]||0;
+    if(pro.juda>=4){ var fj=toks.filter(function(x){return x.w.toLowerCase()==="juda";})[3]; add("Uslub","warn",fj.s,fj.e,"«juda» "+pro.juda+" marta ishlatilgan: aniqroq, kuchliroq soʻz tanlang (nihoyatda, behad, katta).",null); }
+    pro.excl=(text.match(/!/g)||[]).length;
+    if(pro.excl>=4){ var ex=text.indexOf("!",text.indexOf("!",text.indexOf("!",text.indexOf("!")+1)+1)+1); add("Uslub","warn",ex,ex+1,"Undov belgisi koʻp ("+pro.excl+"): rasmiy yozma ishda kam ishlatiladi.",null); }
+    // mazmun belgilari
+    var lt=lowT; 
+    pro.examples=(lt.match(/masalan|misol uchun|misol tariqasida|xususan|jumladan|chunonchi|bunga misol/g)||[]).length+(text.match(/«[^»]{3,}»/g)||[]).length;
+    pro.counter=(lt.match(/biroq|ammo|lekin|garchi|aksincha|shunga qaramay|boshqa tomondan|ikkinchi tomondan/g)||[]).length;
+    pro.rhet=(text.match(/\?/g)||[]).length;
+    var sw=0,tl=0; toks.forEach(function(x){ var L=x.w.replace(/[ʻʼ'’`‘´ʹ\-]/g,"").length; tl+=L; if(L>=9) sw++; }); pro.avgWL=toks.length?tl/toks.length:0; pro.longW=toks.length?sw/toks.length:0;
+  })();
+  paras.forEach(function(P){ pro.paraW.push(toks.filter(function(x){return x.s>=P.s && x.e<=P.e;}).length); });
+  if(pro.paraW.length>=2){ pro.intro=pro.paraW[0]; pro.concl=pro.paraW[pro.paraW.length-1]; }
+  // --- Statistika
+  var uniq=new Set(toks.map(function(x){return norm(x.w);})).size;
+  var ttr=words? uniq/words:0;
+  var avg=lens.length? lens.reduce(function(a,b){return a+b;},0)/lens.length:0;
+  var sd=0; if(lens.length>1){ sd=Math.sqrt(lens.reduce(function(a,b){return a+(b-avg)*(b-avg);},0)/lens.length); }
+  var nErr=issues.filter(function(x){return x.sev==="err" && !x.apos && (x.cat==="Imlo"||x.cat==="Tinish");}).length;
+  var nWarn=issues.filter(function(x){return x.sev==="warn";}).length;
+  var rub=null, score=null, level=null;
+  if(words>=100){
+    var hajm = words<120?12:(words<150?16:(words<=400?20:18));
+    var dens = nErr/(words/100);
+    var imlo = Math.max(0, Math.round((30-Math.min(30,dens*5))*10)/10);
+    var tz=0; tz += paras.length>=3?8:(paras.length===2?4:1);
+    tz += hasConcl?4:0; tz += connFound.length>=3?5:(connFound.length>=1?2:0);
+    tz += (topicHit===false)?0:3;
+    var gp=0; gp += (avg>=8&&avg<=22)?8:(avg>=5&&avg<=28?5:2);
+    gp += sd>=4?3:1; gp += longN===0?2:0; gp += noPred===0?2:0;
+    var total=simple+complexN; var cr= total? complexN/total:0;
+    var gapAdj = (cr>=0.25&&cr<=0.85)?0:-1; gp=Math.max(0,gp+gapAdj);
+    var lg=0; lg += ttr>=0.65?9:(ttr>=0.55?7:(ttr>=0.45?5:3)); lg += Math.max(0,6-2*repList.length);
+    rub={hajm:{v:hajm,max:20},imlo:{v:imlo,max:30},tuzilish:{v:Math.min(20,tz),max:20},gap:{v:Math.min(15,gp),max:15},lugat:{v:Math.min(15,lg),max:15}};
+    score=Math.round(rub.hajm.v+rub.imlo.v+rub.tuzilish.v+rub.gap.v+rub.lugat.v);
+    level = score>=90?"A+":(score>=75?"A":(score>=60?"B+":(score>=45?"B":"B dan past")));
+  }
+  issues.sort(function(a,b){return a.s-b.s || a.e-b.e;});
+  return {words:words, chars:text.length, sentences:sents.length, paragraphs:paras.length, issues:issues, sentInfo:sentInfo,
+    stats:{avg:avg,sd:sd,ttr:ttr,uniq:uniq,simple:simple,complex:complexN,conn:connFound,hasConcl:hasConcl,topicHit:topicHit,longN:longN,noPred:noPred,rep:repList.length,errCount:nErr,warnCount:nWarn},
+    pro:pro, rubric:rub, score:score, level:level};
+}
+
+function applyFixes(text, list){
+  var fx=list.filter(function(x){return x.fix!==null && x.fix!==undefined;}).sort(function(a,b){return b.s-a.s || b.e-a.e;});
+  var lastS=Infinity, out=text;
+  fx.forEach(function(x){ if(x.e>lastS) return; out=out.slice(0,x.s)+x.fix+out.slice(x.e); lastS=x.s; });
+  return out;
+}
+function autoFixAll(text, topic){
+  var out=text;
+  for(var k=0;k<3;k++){ var r=analyze(out,topic); var nx=applyFixes(out,r.issues); if(nx===out) break; out=nx; }
+  return out;
+}
+function fixAposText(text){
+  var out=text.split("");
+  for(var i=1;i<out.length-1;i++){
+    if(APOS_ANY.indexOf(out[i])<0) continue;
+    if(!/\p{L}/u.test(out[i-1]) || !/\p{L}/u.test(out[i+1])) continue;
+    out[i]=/[oOgG]/.test(out[i-1])?"ʻ":"ʼ";
+  }
+  return out.join("");
+}
+/* ===== TAHLIL TUGADI ===== */
+
+</script>
+<script>
+var BASE = [["Vatan va tarix", "Vatan — muqaddas ona zamin"], ["Vatan va tarix", "Oʻzbekistonning ertangi kuni"], ["Vatan va tarix", "Amir Temur va uning davlatchilik tamoyillari"], ["Vatan va tarix", "Mustaqillik — buyuk neʼmat"], ["Vatan va tarix", "Buyuk ipak yoʻli va uning bugungi ahamiyati"], ["Vatan va tarix", "Navroʻz — yangilanish bayrami"], ["Vatan va tarix", "Tarixni bilmagan kelajakni qura olmaydi"], ["Vatan va tarix", "Mirzo Ulugʻbek va uning ilmiy merosi"], ["Vatan va tarix", "Mening yurtim — mening faxrim"], ["Vatan va tarix", "Vatanparvarlik nima?"], ["Vatan va tarix", "Mahalla — oʻzbek xalqining qadriyati"], ["Til va adabiyot", "Ona tili — millat ruhi"], ["Til va adabiyot", "Alisher Navoiy va oʻzbek tili"], ["Til va adabiyot", "Kitob — bilim manbai"], ["Til va adabiyot", "Soʻz — insonning koʻzgusi"], ["Til va adabiyot", "Nega kitob oʻqish kamayib bormoqda?"], ["Til va adabiyot", "Davlat tilining jamiyatdagi oʻrni"], ["Til va adabiyot", "Sheʼriyat insonga nima beradi?"], ["Til va adabiyot", "Maqollar — xalq donoligi"], ["Til va adabiyot", "Notiqlik sanʼati va uning ahamiyati"], ["Til va adabiyot", "Chet tillarini bilishning foydasi"], ["Til va adabiyot", "Mening sevimli yozuvchim"], ["Taʼlim va bilim", "Taʼlim — taraqqiyot kaliti"], ["Taʼlim va bilim", "Ustoz — hayot yoʻlboshchisi"], ["Taʼlim va bilim", "Bilim olish uchun yosh chegarasi bormi?"], ["Taʼlim va bilim", "Masofaviy taʼlimning afzalliklari va kamchiliklari"], ["Taʼlim va bilim", "Ilm olish — ulugʻ vazifa"], ["Taʼlim va bilim", "Yaxshi oʻqituvchi qanday boʻlishi kerak?"], ["Taʼlim va bilim", "Oʻz ustida ishlash sirlari"], ["Taʼlim va bilim", "Oliy taʼlim nima uchun kerak?"], ["Taʼlim va bilim", "Xato qilishdan qoʻrqmaslik"], ["Taʼlim va bilim", "Maktab — ikkinchi uy"], ["Taʼlim va bilim", "Umr boʻyi oʻqish"], ["Oila va jamiyat", "Oila — jamiyatning tayanchi"], ["Oila va jamiyat", "Ota-ona duosi"], ["Oila va jamiyat", "Ota-onaga hurmat"], ["Oila va jamiyat", "Mehr-oqibat tushunchasi"], ["Oila va jamiyat", "Qadrdon qoʻshnichilik"], ["Oila va jamiyat", "Oilada farzand tarbiyasi"], ["Oila va jamiyat", "Kattalarni hurmat qilish"], ["Oila va jamiyat", "Oilaviy qadriyatlar"], ["Oila va jamiyat", "Doʻstlik va sadoqat"], ["Oila va jamiyat", "Yolgʻizlik va jamiyat"], ["Oila va jamiyat", "Bobolarimizdan qolgan odatlar"], ["Yoshlar va kelajak", "Yoshlar — kelajak bunyodkori"], ["Yoshlar va kelajak", "Orzu qilish nega muhim?"], ["Yoshlar va kelajak", "Maqsad sari intilish"], ["Yoshlar va kelajak", "Yoshlar va ijtimoiy tarmoqlar"], ["Yoshlar va kelajak", "Hayotda muvaffaqiyatga nima erishtiradi?"], ["Yoshlar va kelajak", "Sabr va matonat"], ["Yoshlar va kelajak", "Oʻz fikrini erkin bildirish"], ["Yoshlar va kelajak", "Yoshlar tashabbusi"], ["Yoshlar va kelajak", "Mening oʻn yildan keyingi hayotim"], ["Yoshlar va kelajak", "Muvaffaqiyatsizlikdan saboq olish"], ["Yoshlar va kelajak", "Mustaqil qaror qabul qilish"], ["Ilm-fan va texnologiya", "Sunʼiy intellekt va inson kelajagi"], ["Ilm-fan va texnologiya", "Texnologiya hayotimizni qanday oʻzgartirmoqda?"], ["Ilm-fan va texnologiya", "Internet — foyda va xavf"], ["Ilm-fan va texnologiya", "Al-Xorazmiy va fan taraqqiyoti"], ["Ilm-fan va texnologiya", "Ilm-fanning bugungi dunyodagi oʻrni"], ["Ilm-fan va texnologiya", "Raqamli iqtisodiyot"], ["Ilm-fan va texnologiya", "Telefonsiz bir kun"], ["Ilm-fan va texnologiya", "Axborot xavfsizligi"], ["Ilm-fan va texnologiya", "Robotlar odamning oʻrnini bosa oladimi?"], ["Ilm-fan va texnologiya", "Kashfiyotlar va ularning ahamiyati"], ["Ilm-fan va texnologiya", "Ibn Sino — buyuk allomamiz"], ["Tabiat va ekologiya", "Tabiatni asrash — hayotni asrash"], ["Tabiat va ekologiya", "Orol fojiasi saboqlari"], ["Tabiat va ekologiya", "Suv — hayot manbai"], ["Tabiat va ekologiya", "Yashil makon loyihasi"], ["Tabiat va ekologiya", "Global isish va uning oqibatlari"], ["Tabiat va ekologiya", "Chiqindini saralash madaniyati"], ["Tabiat va ekologiya", "Daraxt ekish savobi"], ["Tabiat va ekologiya", "Tabiat va inson uygʻunligi"], ["Tabiat va ekologiya", "Havo tozaligi muammosi"], ["Tabiat va ekologiya", "Hayvonot dunyosini muhofaza qilish"], ["Tabiat va ekologiya", "Energiyani tejash"], ["Salomatlik va turmush tarzi", "Sogʻlom turmush tarzi"], ["Salomatlik va turmush tarzi", "Sport — salomatlik garovi"], ["Salomatlik va turmush tarzi", "Sogʻlom ovqatlanish"], ["Salomatlik va turmush tarzi", "Zararli odatlar va ularning oqibati"], ["Salomatlik va turmush tarzi", "Uyqu va unumdorlik"], ["Salomatlik va turmush tarzi", "Ruhiy salomatlik"], ["Salomatlik va turmush tarzi", "Vaqtni toʻgʻri boshqarish"], ["Salomatlik va turmush tarzi", "Sogʻliq — eng katta boylik"], ["Salomatlik va turmush tarzi", "Harakat — hayot"], ["Salomatlik va turmush tarzi", "Asabiylik bilan kurashish"], ["Salomatlik va turmush tarzi", "Tabiiy mahsulotlarning foydasi"], ["Axloq va qadriyatlar", "Halollik — insoniylik mezoni"], ["Axloq va qadriyatlar", "Sadoqat nima?"], ["Axloq va qadriyatlar", "Rostgoʻylik"], ["Axloq va qadriyatlar", "Mehr-muruvvat"], ["Axloq va qadriyatlar", "Insof va adolat"], ["Axloq va qadriyatlar", "Kechirimlilik"], ["Axloq va qadriyatlar", "Odob — insonning bezagi"], ["Axloq va qadriyatlar", "Kamtarlik"], ["Axloq va qadriyatlar", "Vijdon — ichki hakam"], ["Axloq va qadriyatlar", "Saxovat"], ["Axloq va qadriyatlar", "Oʻzgalar dardiga hamdardlik"], ["Mehnat va kasb", "Mehnat — baxt kaliti"], ["Mehnat va kasb", "Kasb tanlash masʼuliyati"], ["Mehnat va kasb", "Tadbirkorlik va yoshlar"], ["Mehnat va kasb", "Qoʻli gul usta"], ["Mehnat va kasb", "Vaqt — oltin"], ["Mehnat va kasb", "Mehnat va dam olish muvozanati"], ["Mehnat va kasb", "Hunarmandchilik — milliy meros"], ["Mehnat va kasb", "Mening orzuimdagi kasb"], ["Mehnat va kasb", "Halol mehnat — halol non"], ["Mehnat va kasb", "Jamoada ishlash"], ["Mehnat va kasb", "Qishloq xoʻjaligi va kelajak"], ["Vatan va tarix", "Jaloliddin Manguberdi jasorati"], ["Vatan va tarix", "Zahiriddin Muhammad Bobur — shoir va sarkarda"], ["Vatan va tarix", "Samarqand — sharq dunyosining durdonasi"], ["Vatan va tarix", "Buxoro va Xiva — tarix guvohlari"], ["Vatan va tarix", "Jadidlar — millat fidoyilari"], ["Vatan va tarix", "Bayroq va gerb — davlat ramzlari"], ["Vatan va tarix", "Qadimiy meʼmoriy yodgorliklarni asrash"], ["Vatan va tarix", "Ikkinchi jahon urushi qahramonlari va xotira"], ["Vatan va tarix", "Mening shahrimning tarixi"], ["Til va adabiyot", "Abdulla Qodiriy va «Oʻtkan kunlar» romani"], ["Til va adabiyot", "Choʻlpon va Fitrat merosi"], ["Til va adabiyot", "Abdulla Oripov sheʼriyati"], ["Til va adabiyot", "Erkin Vohidov va Muhammad Yusuf lirikasi"], ["Til va adabiyot", "Oʻzbek tilining boyligi — maqol va hikmatlar"], ["Til va adabiyot", "Nutq madaniyati nima?"], ["Til va adabiyot", "Soʻzlashuv tilida yot soʻzlarning koʻpayishi"], ["Til va adabiyot", "Yozuvchining jamiyatdagi masʼuliyati"], ["Til va adabiyot", "Doston va ertaklarning tarbiyaviy kuchi"], ["Til va adabiyot", "Lotin yozuviga oʻtish va uning ahamiyati"], ["Taʼlim va bilim", "Maktabda qanday fanlar muhimroq?"], ["Taʼlim va bilim", "Imtihon — bilimni sinash yoʻli"], ["Taʼlim va bilim", "Mustaqil oʻqish odati"], ["Taʼlim va bilim", "Bilimli inson va ziyoli inson farqi"], ["Taʼlim va bilim", "Xorijda taʼlim olish imkoniyatlari"], ["Taʼlim va bilim", "Oʻqituvchining kasbiy mahorati"], ["Taʼlim va bilim", "Kutubxonaning bugungi ahamiyati"], ["Taʼlim va bilim", "Bolalikdagi bilim — toshga oʻyilgan naqsh"], ["Taʼlim va bilim", "Iqtidorli bolalarni qoʻllab-quvvatlash"], ["Oila va jamiyat", "Oilada ota va onaning oʻrni"], ["Oila va jamiyat", "Ajrimlar sabablari va oldini olish"], ["Oila va jamiyat", "Toʻy va marosimlarda isrofgarchilik"], ["Oila va jamiyat", "Nabiralarning bobo-buvi bilan muloqoti"], ["Oila va jamiyat", "Hashar — birdamlik namunasi"], ["Oila va jamiyat", "Mehmondoʻstlik — xalqimiz fazilati"], ["Oila va jamiyat", "Oila byudjetini toʻgʻri yuritish"], ["Oila va jamiyat", "Aka-uka va opa-singillar munosabati"], ["Yoshlar va kelajak", "Yoshlar bandligi muammosi"], ["Yoshlar va kelajak", "Liderlik fazilatlari"], ["Yoshlar va kelajak", "Oʻzimga ishonch — muvaffaqiyat poydevori"], ["Yoshlar va kelajak", "Yoshlarning ogʻir vaziyatdagi irodasi"], ["Yoshlar va kelajak", "Gʻoya va uni amalga oshirish"], ["Yoshlar va kelajak", "Ota-ona kutgan umid"], ["Yoshlar va kelajak", "Volontyorlik harakati"], ["Yoshlar va kelajak", "Yoshlik — hayotning eng sinovli pallasi"], ["Ilm-fan va texnologiya", "Sunʼiy intellekt taʼlimda"], ["Ilm-fan va texnologiya", "Kosmosni zabt etish"], ["Ilm-fan va texnologiya", "Elektron hukumat qulayliklari"], ["Ilm-fan va texnologiya", "Kiberjinoyatchilikdan himoyalanish"], ["Ilm-fan va texnologiya", "Tibbiyot va yangi texnologiyalar"], ["Ilm-fan va texnologiya", "Mirzo Ulugʻbek rasadxonasi"], ["Ilm-fan va texnologiya", "Quyosh energiyasi — kelajak energiyasi"], ["Ilm-fan va texnologiya", "Oʻyin va texnologiya: foyda yoki zarar?"], ["Tabiat va ekologiya", "Aral dengizini qutqarish yoʻllari"], ["Tabiat va ekologiya", "Plastik buyumlar va tabiat"], ["Tabiat va ekologiya", "Togʻlarni asrash"], ["Tabiat va ekologiya", "Yer osti boyliklaridan oqilona foydalanish"], ["Tabiat va ekologiya", "Bahor — uygʻonish fasli"], ["Tabiat va ekologiya", "Tabiatga sayohat va ekoturizm"], ["Tabiat va ekologiya", "Shahar va yashil hudud"], ["Tabiat va ekologiya", "Qushlarning ahamiyati"], ["Salomatlik va turmush tarzi", "Tez ovqatlanish va uning zarari"], ["Salomatlik va turmush tarzi", "Chekish va elektron sigaretalarning oqibati"], ["Salomatlik va turmush tarzi", "Kunlik tartib nima uchun kerak?"], ["Salomatlik va turmush tarzi", "Sayrlar va piyoda yurish foydasi"], ["Salomatlik va turmush tarzi", "Stress bilan kurashish usullari"], ["Salomatlik va turmush tarzi", "Oʻz vaqtida tibbiy koʻrikdan oʻtish"], ["Salomatlik va turmush tarzi", "Suv ichish madaniyati"], ["Axloq va qadriyatlar", "Gʻurur va takabburlik"], ["Axloq va qadriyatlar", "Gʻaflat va masʼuliyat"], ["Axloq va qadriyatlar", "Vaʼdaga vafo"], ["Axloq va qadriyatlar", "Shukr qilish"], ["Axloq va qadriyatlar", "Xushmuomalalik"], ["Axloq va qadriyatlar", "Hasad va uning zarari"], ["Axloq va qadriyatlar", "Yaxshilik qil — daryoga ot"], ["Axloq va qadriyatlar", "Gʻiybat — jamiyat illati"], ["Mehnat va kasb", "Shifokor kasbi — ulugʻ kasb"], ["Mehnat va kasb", "Muallimlik — sharafli mehnat"], ["Mehnat va kasb", "Dehqon mehnati va non qadri"], ["Mehnat va kasb", "Dasturchi kasbining kelajagi"], ["Mehnat va kasb", "Kasbga yoʻnaltirish va maktab"], ["Mehnat va kasb", "Ishda halollik va intizom"], ["Mehnat va kasb", "Orzudagi ishni topish"], ["Madaniyat va sanʼat", "Milliy kiyimlarimizning goʻzalligi"], ["Madaniyat va sanʼat", "Oʻzbek milliy taomlari"], ["Madaniyat va sanʼat", "Musiqaning insonga taʼsiri"], ["Madaniyat va sanʼat", "Teatr va kino sanʼati"], ["Madaniyat va sanʼat", "Shashmaqom — nodir meros"], ["Madaniyat va sanʼat", "Muzeylarga borish madaniyati"], ["Madaniyat va sanʼat", "Rassomlik va naqqoshlik sanʼati"], ["Madaniyat va sanʼat", "Milliy oʻyinlarimiz: kurash va uloq"], ["Sport va sogʻlom avlod", "Sportning shaxs tarbiyasidagi oʻrni"], ["Sport va sogʻlom avlod", "Oʻzbek sportchilarining xalqaro yutuqlari"], ["Sport va sogʻlom avlod", "Futbol — ommaviy sevimli oʻyin"], ["Sport va sogʻlom avlod", "Shaxmat — aql mashqi"], ["Sport va sogʻlom avlod", "Jismoniy tarbiya darslari ahamiyati"], ["Sport va sogʻlom avlod", "Gʻalaba va magʻlubiyatga munosabat"], ["Iqtisodiyot va tadbirkorlik", "Kichik biznes va uning ahamiyati"], ["Iqtisodiyot va tadbirkorlik", "Pul qadri va tejamkorlik"], ["Iqtisodiyot va tadbirkorlik", "Eksport va milliy mahsulot"], ["Iqtisodiyot va tadbirkorlik", "Turizmning iqtisodiyotga taʼsiri"], ["Iqtisodiyot va tadbirkorlik", "Onlayn savdo: qulaylik va xavf"], ["Iqtisodiyot va tadbirkorlik", "Qarz olish va uning oqibatlari"], ["Axborot va ommaviy media", "Ijtimoiy tarmoqlarda yolgʻon xabarlar"], ["Axborot va ommaviy media", "Televideniye yoki internet: qaysi biri foydali?"], ["Axborot va ommaviy media", "Jurnalistning haqiqat oldidagi burchi"], ["Axborot va ommaviy media", "Blogerlik va javobgarlik"], ["Axborot va ommaviy media", "Axborot oqimida toʻgʻrisini topish"], ["Huquq va fuqarolik", "Qonun oldida hamma teng"], ["Huquq va fuqarolik", "Fuqaroning huquq va burchlari"], ["Huquq va fuqarolik", "Korrupsiyaga qarshi kurash"], ["Huquq va fuqarolik", "Saylov va fuqarolik faolligi"], ["Huquq va fuqarolik", "Huquqiy madaniyat nima?"], ["Huquq va fuqarolik", "Bolalar huquqlari himoyasi"]];
+var TOPICS = BASE.slice();
+var WTESTS = [{"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «xozir»", "a": ["hozir"], "e": "«hozir» — h harfi bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «dexqon»", "a": ["dehqon"], "e": "«dehqon» — h bilan: dehqon."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «maxalla»", "a": ["mahalla"], "e": "«mahalla» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «taxlil»", "a": ["tahlil"], "e": "«tahlil» — arabcha oʻzlashma, h bilan."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «saxifa»", "a": ["sahifa"], "e": "«sahifa» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «extiyoj»", "a": ["ehtiyoj"], "e": "«ehtiyoj» — h bilan: ehtiyoj."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «mexmon»", "a": ["mehmon"], "e": "«mehmon» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «shaxar»", "a": ["shahar"], "e": "«shahar» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «ruxiyat»", "a": ["ruhiyat"], "e": "«ruhiyat» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «axamiyat»", "a": ["ahamiyat"], "e": "«ahamiyat» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «halq»", "a": ["xalq"], "e": "«xalq» — x bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «tarih»", "a": ["tarix"], "e": "«tarix» — x bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «ahloq»", "a": ["axloq"], "e": "«axloq» — x bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «xaqiqat»", "a": ["haqiqat"], "e": "«haqiqat» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «xamma»", "a": ["hamma"], "e": "«hamma» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «xayot»", "a": ["hayot"], "e": "«hayot» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «xalol»", "a": ["halol"], "e": "«halol» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «xurmat»", "a": ["hurmat"], "e": "«hurmat» — h bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «hazina»", "a": ["xazina"], "e": "«xazina» — x bilan yoziladi."}, {"k": "Imlo", "q": "Soʻzni toʻgʻri yozing: «hotira»", "a": ["xotira"], "e": "«xotira» — x bilan yoziladi."}, {"k": "Gapdagi xato", "q": "Gapdagi xatoli soʻzni toping va toʻgʻri yozing:\n«Biz xar kuni kutubxonaga boramiz.»", "a": ["har"], "e": "«har» — h bilan yoziladi."}, {"k": "Gapdagi xato", "q": "Gapdagi xatoli soʻzni toping va toʻgʻri yozing:\n«Mening opam shaxarda yashaydi.»", "a": ["shaharda", "shahar"], "e": "«shahar» — h bilan: shaharda."}, {"k": "Gapdagi xato", "q": "Gapdagi xatoli soʻzni toping va toʻgʻri yozing:\n«Xamma vaqtida halol boʻlish kerak.»", "a": ["hamma", "hamma"], "e": "«hamma» — h bilan."}, {"k": "Gapdagi xato", "q": "Gapdagi xatoli soʻzni toping va toʻgʻri yozing:\n«Oʻzbek halqi mehmondoʻst.»", "a": ["xalqi", "xalq"], "e": "«xalq» — x bilan: xalqi."}, {"k": "Gapdagi xato", "q": "Gapdagi xatoli soʻzni toping va toʻgʻri yozing:\n«Bu kitob menga juda foydali boʻldi, lekin undagi tarih qisqa.»", "a": ["tarix", "tarix"], "e": "«tarix» — x bilan yoziladi."}, {"k": "Gapdagi xato", "q": "Gapdagi xatoli soʻzni toping va toʻgʻri yozing:\n«Ona tilimiz xayotimizning ajralmas qismi.»", "a": ["hayotimizning", "hayot"], "e": "«hayot» — h bilan: hayotimizning."}, {"k": "Qoʻshimcha", "q": "«shahar» soʻziga tushum kelishigi qoʻshimchasini qoʻshing.", "a": ["shaharni"], "e": "Tushum kelishigi: -ni."}, {"k": "Qoʻshimcha", "q": "«bola» soʻziga qaratqich kelishigi qoʻshimchasini qoʻshing.", "a": ["bolaning"], "e": "Qaratqich kelishigi: -ning."}, {"k": "Qoʻshimcha", "q": "«maktab» soʻziga joʻnalish kelishigi qoʻshimchasini qoʻshing.", "a": ["maktabga"], "e": "Joʻnalish kelishigi: -ga."}, {"k": "Qoʻshimcha", "q": "«qalam» soʻziga chiqish kelishigi qoʻshimchasini qoʻshing.", "a": ["qalamdan"], "e": "Chiqish kelishigi: -dan."}, {"k": "Qoʻshimcha", "q": "«kitob» soʻziga oʻrin-payt kelishigi qoʻshimchasini qoʻshing.", "a": ["kitobda"], "e": "Oʻrin-payt kelishigi: -da."}, {"k": "Qoʻshimcha", "q": "«men» olmoshini qaratqich kelishigida yozing.", "a": ["mening"], "e": "men → mening."}, {"k": "Qoʻshimcha", "q": "«u» olmoshini tushum kelishigida yozing.", "a": ["uni"], "e": "u → uni."}, {"k": "Qoʻshimcha", "q": "«sen» olmoshini joʻnalish kelishigida yozing.", "a": ["senga"], "e": "sen → senga."}, {"k": "Qoʻshimcha", "q": "«biz» olmoshini qaratqich kelishigida yozing.", "a": ["bizning"], "e": "biz → bizning."}, {"k": "Qoʻshimcha", "q": "«ona» soʻzini 1-shaxs egalik shaklida (mening ...) yozing.", "a": ["onam"], "e": "1-shaxs birlik egalik: -(i)m: onam."}, {"k": "Qoʻshimcha", "q": "«kitob» soʻzini 2-shaxs egalik shaklida (sening ...) yozing.", "a": ["kitobing"], "e": "2-shaxs birlik egalik: -ing."}, {"k": "Qoʻshimcha", "q": "«uy» soʻzini 3-shaxs egalik shaklida (uning ...) yozing.", "a": ["uyi"], "e": "3-shaxs egalik: -i."}, {"k": "Qoʻshimcha", "q": "«daftar» soʻzini koʻplik shaklida yozing.", "a": ["daftarlar"], "e": "Koʻplik: -lar."}, {"k": "Qoʻshimcha", "q": "«bola» soʻzini koʻplik va 1-shaxs egalik shaklida (mening ...) yozing.", "a": ["bolalarim"], "e": "bola + lar + im = bolalarim."}, {"k": "Antonim va sinonim", "q": "«keng» soʻzining antonimini yozing.", "a": ["tor"], "e": "keng — tor."}, {"k": "Antonim va sinonim", "q": "«yaxshi» soʻzining antonimini yozing.", "a": ["yomon"], "e": "yaxshi — yomon."}, {"k": "Antonim va sinonim", "q": "«katta» soʻzining antonimini yozing.", "a": ["kichik"], "e": "katta — kichik."}, {"k": "Antonim va sinonim", "q": "«baland» soʻzining antonimini yozing.", "a": ["past"], "e": "baland — past."}, {"k": "Antonim va sinonim", "q": "«doʻst» soʻzining antonimini yozing.", "a": ["dushman"], "e": "doʻst — dushman."}, {"k": "Antonim va sinonim", "q": "«haqiqat» soʻzining antonimini yozing.", "a": ["yolgʻon", "yolgʻonchilik"], "e": "haqiqat — yolgʻon."}, {"k": "Antonim va sinonim", "q": "«sovuq» soʻzining antonimini yozing.", "a": ["issiq"], "e": "sovuq — issiq."}, {"k": "Antonim va sinonim", "q": "«qoʻrqoq» soʻzining antonimini yozing.", "a": ["jasur", "botir", "qoʻrqmas"], "e": "qoʻrqoq — jasur."}, {"k": "Antonim va sinonim", "q": "«saxiy» soʻzining antonimini yozing.", "a": ["xasis", "baxil", "qizgʻanchoq"], "e": "saxiy — xasis."}, {"k": "Antonim va sinonim", "q": "«mehnatsevar» soʻzining antonimini yozing.", "a": ["dangasa", "ishyoqmas"], "e": "mehnatsevar — dangasa."}, {"k": "Antonim va sinonim", "q": "«goʻzal» soʻzining sinonimini yozing (bitta).", "a": ["chiroyli", "suluv", "nafis"], "e": "goʻzal — chiroyli."}, {"k": "Antonim va sinonim", "q": "«bilim» soʻzining sinonimini yozing (bitta).", "a": ["ilm"], "e": "bilim — ilm."}, {"k": "Antonim va sinonim", "q": "«vatan» soʻzining sinonimini yozing (bitta).", "a": ["yurt", "diyor", "ona yurt", "ona vatan"], "e": "vatan — yurt."}, {"k": "Antonim va sinonim", "q": "«shod» soʻzining sinonimini yozing (bitta).", "a": ["xursand", "mamnun", "quvnoq"], "e": "shod — xursand."}, {"k": "Atama", "q": "Harakat yoki holatni bildirib, nima qildi? soʻrogʻiga javob boʻladigan soʻz turkumi nima?", "a": ["fel"], "e": "Fel — harakat-holat bildiruvchi soʻz turkumi."}, {"k": "Atama", "q": "Predmetni bildirib, kim? nima? soʻroqlariga javob boʻladigan soʻz turkumi nima?", "a": ["ot"], "e": "Ot — predmet bildiradi."}, {"k": "Atama", "q": "Predmetning belgisini bildirib, qanday? soʻrogʻiga javob boʻladigan soʻz turkumi nima?", "a": ["sifat"], "e": "Sifat — belgi bildiradi."}, {"k": "Atama", "q": "Predmetning sanogʻini bildirib, nechta? soʻrogʻiga javob boʻladigan soʻz turkumi nima?", "a": ["son"], "e": "Son — miqdor va tartib bildiradi."}, {"k": "Atama", "q": "Ot, sifat yoki son oʻrnida qoʻllanadigan soʻz turkumi nima?", "a": ["olmosh"], "e": "Olmosh — shu turkumlar oʻrnida keladi."}, {"k": "Atama", "q": "Gapda «kim? nima?» soʻrogʻiga javob boʻlib, harakat egasini bildiruvchi boʻlak nima?", "a": ["ega"], "e": "Ega — gapning bosh boʻlagi."}, {"k": "Atama", "q": "Gapda ega haqida axborot beruvchi bosh boʻlak nima?", "a": ["kesim"], "e": "Kesim — gapning bosh boʻlagi."}, {"k": "Atama", "q": "Soʻz, gap boʻlaklarini yoki gaplarni bogʻlovchi yordamchi soʻz turkumi nima?", "a": ["bogʻlovchi", "boglovchi"], "e": "Bogʻlovchi — va, ammo, lekin kabilar."}, {"k": "Atama", "q": "Shakli bir xil, maʼnosi har xil soʻzlar (masalan, «qoʻy» — hayvon va feʼl) nima deyiladi?", "a": ["omonim", "omonimlar"], "e": "Shakldosh soʻzlar — omonimlar."}, {"k": "Atama", "q": "Maʼnosi yaqin soʻzlar nima deyiladi?", "a": ["sinonim", "sinonimlar"], "e": "Maʼnodosh soʻzlar — sinonimlar."}, {"k": "Atama", "q": "Soʻzning maʼnoli eng kichik boʻlagi nima?", "a": ["morfema"], "e": "Morfema — maʼnoli eng kichik boʻlak."}, {"k": "Atama", "q": "Gap boʻlaklarining toʻliq ifodalanishi uchun kelgan, ega va kesimdan boshqa boʻlaklar umumiy nomi? (ikkinchi darajali ...)", "a": ["boʻlaklar", "bolaklar", "ikkinchi darajali boʻlaklar"], "e": "Ikkinchi darajali boʻlaklar: aniqlovchi, toʻldiruvchi, holat."}, {"k": "Tinish belgilari", "q": "«Men oʻqiyman lekin u yozadi.» Gapda nechta vergul kerak? (raqam bilan)", "a": ["1"], "e": "«lekin» dan oldin vergul qoʻyiladi: 1 ta."}, {"k": "Tinish belgilari", "q": "«Kitob daftar qalam va ruchka stolda edi.» Gapda nechta vergul kerak? (raqam bilan)", "a": ["2"], "e": "Uyushiq boʻlaklar: Kitob, daftar, qalam va ruchka — 2 ta."}, {"k": "Tinish belgilari", "q": "«Hamma xursand edi chunki imtihon yaxshi oʻtdi.» Gapda nechta vergul kerak? (raqam bilan)", "a": ["1"], "e": "«chunki» dan oldin vergul: 1 ta."}];
+var PLANS = {
+ "Vatan va tarix":["Mavzuning mohiyati nimada? Oʻz fikringizni bir gapda ayting.","Tarixdan yoki bugungi hayotdan qanday misol keltira olasiz?","Bu mavzu yoshlar uchun nimani anglatadi?","Xulosa: vatan oldidagi vazifamiz nima?"],
+ "Til va adabiyot":["Til yoki soʻz mavzuda nimani ifodalaydi?","Buyuk shoir yoki yozuvchidan qanday misol keltirasiz?","Bugungi kunda bu borada qanday muammo bor?","Xulosa: nima qilishimiz kerak?"],
+ "Taʼlim va bilim":["Bilimning inson hayotidagi oʻrni qanday?","Shaxsiy tajribangizdan misol keltiring.","Qanday toʻsiqlar bor va ularni qanday yengish mumkin?","Xulosa: taʼlimga munosabatingiz."],
+ "Oila va jamiyat":["Mavzuning jamiyatdagi ahamiyati qanday?","Oilada yoki mahallada kuzatgan voqea yoki odat.","Qanday muammolar uchraydi?","Xulosa: qadriyatlarni qanday asrash mumkin?"],
+ "Yoshlar va kelajak":["Mavzuga shaxsiy qarashingiz qanday?","Muvaffaqiyatli insonlardan misol.","Yoshlar nimalarga eʼtibor berishi kerak?","Xulosa: oʻz kelajagingiz uchun rejangiz."],
+ "Ilm-fan va texnologiya":["Texnologiyaning foydasi nimada?","Xavf va kamchiliklari qanday?","Kundalik hayotdan aniq misol.","Xulosa: foydalanishning toʻgʻri yoʻli."],
+ "Tabiat va ekologiya":["Muammoning mohiyati nimada?","Sabablari va oqibatlari qanday?","Har bir inson nima qila oladi?","Xulosa: tabiatni asrash uchun chaqiriq."],
+ "Salomatlik va turmush tarzi":["Salomatlik nima uchun muhim?","Foydali va zararli odatlar.","Oʻzingiz qoʻllaydigan yoki qoʻllamoqchi boʻlgan yoʻl.","Xulosa: sogʻlom hayot qoidalari."],
+ "Axloq va qadriyatlar":["Bu tushunchani oʻz soʻzlaringiz bilan taʼriflang.","Hayotiy yoki tarixiy misol.","Bu fazilat yetishmasa, nima boʻladi?","Xulosa: bu fazilatni qanday tarbiyalash mumkin?"],
+ "Mehnat va kasb":["Mehnatning inson hayotidagi oʻrni.","Kasb yoki mehnat haqida tajribangiz.","Zamonaviy dunyoda talab qilinadigan fazilatlar.","Xulosa: oʻz yoʻlingiz haqida."]
+};
+PLANS["Oʻz mavzum"]=["Mavzuning mohiyatini bir gapda ayting.","Oʻz hayotingizdan yoki yurtimizdan misol keltiring.","Muammo va yechimni koʻrsating.","Xulosa: oʻz fikringiz."];
+var PHRASES=["Avvalo,","Shuningdek,","Bundan tashqari,","Masalan,","Shu bois","Natijada","Ikkinchidan,","Lekin","Biroq","Chunki","Demak,","Xulosa qilib aytganda,"];
+
+var KEY="esse_ustaxona_v1";
+var store={topic:0,drafts:{},hist:[],custom:[],user:null,tests:[]};
+function loadStore(){ try{ var d=JSON.parse(localStorage.getItem(KEY)||"null"); if(d&&typeof d==="object"){ store.custom=Array.isArray(d.custom)?d.custom.slice(0,60):[]; store.user=d.user||null; store.tests=Array.isArray(d.tests)?d.tests:[]; rebuildTopics(); store.topic=Math.min(Math.max(+d.topic||0,0),TOPICS.length-1); store.drafts=d.drafts||{}; store.hist=Array.isArray(d.hist)?d.hist:[]; } else store.topic=Math.floor(Math.random()*TOPICS.length); }catch(e){ store.topic=Math.floor(Math.random()*TOPICS.length); } }
+function rebuildTopics(){ TOPICS=BASE.concat(store.custom.map(function(c){return ["Oʻz mavzum",c];})); }
+function saveStore(){ try{ localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){} }
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+var toastT=null;
+function toast(m){ var t=$("toast"); t.textContent=m; t.classList.add("on"); clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove("on");},2400); }
+
+var ta=$("ta"), mirror=$("mirror"), cur=null, sevFilter="all", undoText=null, aiPending=false, aiAbort=null, lastAI=null;
+var SEVN={err:"Xato",warn:"Tavsiya",info:"Eslatma"};
+
+function topicTitle(){ return TOPICS[store.topic][1]; }
+function setTab(name){
+  ["write","topics","test","me","admin"].forEach(function(n){ $("v-"+n).hidden = n!==name; var b=$("tab-"+n); b.setAttribute("aria-selected", n===name?"true":"false"); });
+  if(name==="topics") renderTopics(); if(name==="me") renderMe(); if(name==="test") renderTest(); if(name==="admin") renderAdmin();
+  window.scrollTo(0,0);
+}
+function setTopic(i, go){
+  store.drafts[store.topic]=ta.value; store.topic=i; saveStore();
+  ta.value=store.drafts[i]||""; lastAI=null; $("aiCard").hidden=true; undoText=null; $("bUndo").hidden=true;
+  renderTopic(); grow(); update(true); if(go!==false) setTab("write");
+}
+function renderTopic(){
+  var t=TOPICS[store.topic]; $("tCat").textContent=t[0]; $("tTitle").textContent=t[1];
+  var q=PLANS[t[0]]||[]; $("planQ").innerHTML=q.map(function(x){return "<li>"+esc(x)+"</li>";}).join("");
+}
+function grow(){ ta.style.height="auto"; ta.style.height=Math.max(380,ta.scrollHeight+2)+"px"; }
+
+/* --- belgilash qatlami --- */
+function renderMirror(res){
+  var text=ta.value, marks=[];
+  res.issues.forEach(function(x){ var s=x.s,e=x.e; if(s===e){ if(s===0) return; s=s-1; } if(e>text.length) e=text.length; if(s>=e) return; marks.push({s:s,e:e,sev:x.sev}); });
+  marks.sort(function(a,b){return a.s-b.s||b.e-a.e;});
+  var out="", pos=0, rank={err:3,warn:2,info:1};
+  var merged=[];
+  marks.forEach(function(m){ var l=merged[merged.length-1]; if(l && m.s<l.e){ if(m.e>l.e) l.e=m.e; if(rank[m.sev]>rank[l.sev]) l.sev=m.sev; } else merged.push({s:m.s,e:m.e,sev:m.sev}); });
+  merged.forEach(function(m){ out+=esc(text.slice(pos,m.s))+'<mark class="'+m.sev+'" data-s="'+m.s+'">'+esc(text.slice(m.s,m.e))+"</mark>"; pos=m.e; });
+  out+=esc(text.slice(pos));
+  mirror.innerHTML=out+"​";
+}
+var tmr=null;
+function update(now){
+  var fx=fixAposText(ta.value);
+  if(fx!==ta.value){ var a=ta.selectionStart,b=ta.selectionEnd; ta.value=fx; try{ta.setSelectionRange(a,b);}catch(e){} }
+  grow(); mirror.textContent=ta.value+"​";
+  clearTimeout(tmr);
+  if(now===true){ run(); } else tmr=setTimeout(run,300);
+  store.drafts[store.topic]=ta.value; saveStore();
+}
+function run(){
+  try{ cur=analyze(ta.value, topicTitle()); renderMirror(cur); renderCounter(cur); renderReport(cur); }
+  catch(e){ $("scT").textContent="Tekshiruv xatosi: "+(e&&e.message?e.message:e); try{console.error(e);}catch(_){} }
+}
+function renderCounter(r){
+  var w=r.words, pct=Math.min(1,w/100), C=163.36;
+  $("ringFg").setAttribute("stroke-dashoffset",(C*(1-pct)).toFixed(2));
+  $("ring").classList.toggle("done",w>=100); $("ringN").textContent=w;
+  $("wl").textContent=w+" / 100 soʻz";
+  $("ws").textContent = w>=100 ? "Hajm yetarli. Ideal: 150–300 soʻz" : "Yana "+(100-w)+" ta soʻz kerak";
+}
+function bar(v,max){ var p=Math.round(v/max*100), c=p<50?"lo":(p<75?"mid":""); return '<div class="bar"><i class="'+c+'" style="width:'+p+'%"></i></div>'; }
+function renderReport(r){
+  var ok=r.score!==null;
+  if(r.cyrillic) $("scT").textContent="Matn kirill yozuvida: esseni lotin yozuvida yozing";
+  $("sc").innerHTML = ok? r.score+" <small>/ 100</small>" : "—";
+  if(!r.cyrillic) $("scT").textContent = ok? "Dastlabki baho" : "Baholash kamida 100 soʻzdan keyin boshlanadi";
+  var lv=$("lv"); lv.hidden=!ok; if(ok) lv.textContent="Taxminiy daraja: "+r.level;
+  var RB=[["hajm","Hajm","100 soʻzdan boshlanadi; 150–300 soʻz yaxshi."],["imlo","Imlo va tinish","Imlo, bosh harf, vergul, probel xatolari."],["tuzilish","Matn tuzilishi","Xatboshilar, bogʻlovchi iboralar, xulosa, mavzuga yaqinlik."],["gap","Gap qurilishi","Gap uzunligi, sodda va murakkab gaplar xilma-xilligi."],["lugat","Lugʻat boyligi","Takror soʻzlar va turli soʻzlar nisbati."]];
+  $("rub").innerHTML = ok ? RB.map(function(x){ var o=r.rubric[x[0]]; return '<div class="rrow"><span class="nm">'+x[1]+'</span><span class="pt">'+(Math.round(o.v*10)/10)+" / "+o.max+"</span>"+bar(o.v,o.max)+"<small>"+x[2]+"</small></div>"; }).join("")
+    : '<div class="empty">Reja: kirish, asosiy qism va xulosa. 100 soʻzga yetgach, bal va daraja chiqadi.</div>';
+  renderTrio(r); renderExpert(r);
+  var st=r.stats;
+  $("facts").innerHTML = [
+    [r.sentences,"gap"],[r.paragraphs,"xatboshi"],[(Math.round(st.avg*10)/10)||0,"oʻrtacha gap (soʻz)"],[Math.round(st.ttr*100)+"%","turli soʻzlar ulushi"],
+    [st.simple+" / "+st.complex,"sodda / murakkabroq gap"],[st.conn.length,"bogʻlovchi ibora"]
+  ].map(function(x){return "<div><b>"+x[0]+"</b><span>"+x[1]+"</span></div>";}).join("");
+  // muammolar
+  var cnt={err:0,warn:0,info:0}; r.issues.forEach(function(x){cnt[x.sev]++;});
+  var heads=[["all","Hammasi "+r.issues.length],["err","Xato "+cnt.err],["warn","Tavsiya "+cnt.warn],["info","Eslatma "+cnt.info]];
+  $("ihead").innerHTML=heads.map(function(h){return '<button class="fchip" type="button" data-f="'+h[0]+'" aria-pressed="'+(sevFilter===h[0])+'">'+h[1]+"</button>";}).join("");
+  var list=[]; r.issues.forEach(function(x,i){ if(sevFilter==="all"||x.sev===sevFilter) list.push(i); });
+  var note="";
+  if(!ta.value.trim()) $("ilist").innerHTML='<li class="empty">Matn yozishni boshlang. Xatolar shu yerda va matn ostida koʻrinadi.</li>';
+  else if(!list.length) $("ilist").innerHTML='<li class="empty">'+(r.issues.length? "Bu turda eslatma yoʻq." : "Aniq xato topilmadi. Mazmun va mantiq uchun «Chuqur tekshiruv»dan foydalaning.")+"</li>";
+  else {
+    var shown=list.slice(0,80);
+    $("ilist").innerHTML=shown.map(function(i){ var x=r.issues[i], T=ta.value;
+      var a=Math.max(0,x.s-28), b=Math.min(T.length,x.e+28), s0=x.s, e0=(x.e>x.s?x.e:Math.min(T.length,x.s+1));
+      var snip=(a>0?"…":"")+esc(T.slice(a,s0))+"<mark>"+esc(T.slice(s0,e0))+"</mark>"+esc(T.slice(e0,Math.max(b,e0)))+(b<T.length?"…":"");
+      var fx = x.fix!==null && x.fix!==undefined ? '<button class="btn sm" type="button" data-act="fix" data-i="'+i+'">Tuzatish'+(x.fix===""?" (oʻchirish)":": «"+esc(x.fix.trim()||"probel")+"»")+"</button>":"";
+      return '<li class="iss '+x.sev+'"><div class="ih"><span class="cat">'+x.cat+" · "+SEVN[x.sev]+'</span><span class="msg">'+esc(x.msg)+'</span></div><div class="snip">'+snip+'</div><div class="ib"><button class="btn sm" type="button" data-act="go" data-i="'+i+'">Koʻrsatish</button>'+fx+"</div></li>";
+    }).join("")+(list.length>80?'<li class="empty">Yana '+(list.length-80)+" ta. Avval yuqoridagilarni tuzating.</li>":"");
+  }
+  // gaplar
+  var sd=r.sentInfo;
+  $("sents").innerHTML = sd.length? sd.map(function(x,i){ var T=ta.value.slice(x.s,x.e); var n=r.issues.filter(function(y){return y.s>=x.s&&y.s<=x.e;}).length;
+    return '<div class="srow"><span>'+(i+1)+"</span><span>"+esc(T.length>70?T.slice(0,68)+"…":T)+"</span><em>"+x.wc+" soʻz · "+x.kind+" · "+x.struct+(n?" · "+n+" belgi":"")+"</em></div>"; }).join("") : '<p class="note" style="padding-top:8px">Gaplar hali yoʻq.</p>';
+}
+
+/* --- harakatlar --- */
+function applyEdit(newText, caret){
+  undoText=ta.value; $("bUndo").hidden=false; ta.value=newText;
+  if(caret!==undefined) ta.setSelectionRange(caret,caret);
+  update(true);
+}
+$("ilist").addEventListener("click",function(e){
+  var b=e.target.closest("button[data-act]"); if(!b||!cur) return; var x=cur.issues[+b.dataset.i]; if(!x) return;
+  if(b.dataset.act==="go"){ ta.focus({preventScroll:true}); ta.setSelectionRange(x.s,Math.max(x.s,x.e));
+    var best=null,bd=1e9; mirror.querySelectorAll("mark").forEach(function(m){ var d=Math.abs(+m.dataset.s-Math.max(0,x.s-(x.s===x.e?1:0))); if(d<bd){bd=d;best=m;} });
+    (best||ta).scrollIntoView({block:"center",behavior:"smooth"}); }
+  else if(b.dataset.act==="fix"){ var T=ta.value; applyEdit(T.slice(0,x.s)+x.fix+T.slice(x.e), x.s+x.fix.length); toast("Tuzatildi"); }
+});
+$("ihead").addEventListener("click",function(e){ var b=e.target.closest("button[data-f]"); if(!b) return; sevFilter=b.dataset.f; if(cur) renderReport(cur); });
+ta.addEventListener("input",function(){ update(); });
+$("bFix").addEventListener("click",function(){ var f=autoFixAll(ta.value,topicTitle()); if(f===ta.value){ toast("Avtomatik tuzatiladigan xato topilmadi"); return; } applyEdit(f); toast("Imlo va tinish tuzatildi"); });
+$("bUndo").addEventListener("click",function(){ if(undoText===null) return; ta.value=undoText; undoText=null; $("bUndo").hidden=true; update(true); toast("Bekor qilindi"); });
+var clearAsk=false;
+$("bClear").addEventListener("click",function(){ var b=$("bClear");
+  if(!clearAsk){ clearAsk=true; b.textContent="Rostdan tozalansinmi?"; setTimeout(function(){clearAsk=false;b.textContent="Tozalash";},3000); return; }
+  clearAsk=false; b.textContent="Tozalash"; applyEdit(""); lastAI=null; $("aiCard").hidden=true; });
+$("bPlan").addEventListener("click",function(){ var p=$("plan"); p.hidden=!p.hidden; $("bPlan").setAttribute("aria-expanded",String(!p.hidden)); });
+$("bRand").addEventListener("click",function(){ var i; do{ i=Math.floor(Math.random()*TOPICS.length);}while(i===store.topic&&TOPICS.length>1); setTopic(i,false); toast("Yangi mavzu"); });
+$("bChange").addEventListener("click",function(){ setTab("topics"); });
+document.querySelectorAll(".tab").forEach(function(b){ b.addEventListener("click",function(){ setTab(b.dataset.tab); }); });
+$("phr").innerHTML=PHRASES.map(function(p){return '<button class="chip" type="button">'+esc(p)+"</button>";}).join("");
+$("phr").addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(!b) return; var s=ta.selectionStart,en=ta.selectionEnd,T=ta.value; var ins=b.textContent+" ";
+  var pre=(s>0 && !/\s$/.test(T.slice(0,s)))?" ":""; applyEdit(T.slice(0,s)+pre+ins+T.slice(en), s+pre.length+ins.length); ta.focus(); });
+
+/* vaqt */
+var clk={id:null,end:0};
+function fmt(ms){ var s=Math.max(0,Math.ceil(ms/1000)),m=Math.floor(s/60); return String(m).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+$("tmSel").addEventListener("change",function(){
+  clearInterval(clk.id); var m=+this.value, c=$("clock"); c.classList.remove("low");
+  if(!m){ c.textContent="--:--"; return; }
+  clk.end=Date.now()+m*60000; c.textContent=fmt(m*60000);
+  clk.id=setInterval(function(){ var left=clk.end-Date.now(); c.textContent=fmt(left); c.classList.toggle("low",left<120000);
+    if(left<=0){ clearInterval(clk.id); toast("Vaqt tugadi. Esseni yakunlang."); } },500);
+  ta.focus();
+});
+
+/* saqlash */
+$("bSave").addEventListener("click",function(){
+  if(!cur||cur.score===null){ toast("Saqlash uchun kamida 100 soʻz kerak"+(cur?" (yana "+(100-cur.words)+")":"")); return; }
+  var tr=window.__trio||{};
+  store.hist.unshift({t:Date.now(),topic:topicTitle(),cat:TOPICS[store.topic][0],words:cur.words,score:cur.score,level:cur.level,im:tr.im,tu:tr.tu,mz:tr.mz,ai:lastAI&&typeof lastAI.ball==="number"?lastAI.ball:null});
+  store.hist=store.hist.slice(0,60); saveStore(); toast("Natija saqlandi: "+cur.score+" ball, "+cur.level); $("bSend").hidden=!tgUser(); lastSaved=store.hist[0];
+});
+
+/* mavzular */
+var catSel="Hammasi";
+function renderTopics(){
+  $("tCount").textContent=TOPICS.length;
+  var cats=["Hammasi"]; TOPICS.forEach(function(t){ if(cats.indexOf(t[0])<0) cats.push(t[0]); });
+  $("cats").innerHTML=cats.map(function(c){return '<button class="fchip" type="button" data-c="'+esc(c)+'" aria-pressed="'+(c===catSel)+'">'+esc(c)+"</button>";}).join("");
+  var q=$("tq").value.trim().toLowerCase().replace(/[ʻʼ'’`‘]/g,"");
+  var done={}; store.hist.forEach(function(h){done[h.topic]=1;});
+  var html=""; TOPICS.forEach(function(t,i){
+    if(catSel!=="Hammasi" && t[0]!==catSel) return;
+    if(q && (t[1]+" "+t[0]).toLowerCase().replace(/[ʻʼ'’`‘]/g,"").indexOf(q)<0) return;
+    html+='<button class="tcard'+(i===store.topic?" cur":"")+'" type="button" data-i="'+i+'"><span class="meta"><span>'+esc(t[0])+"</span>"+(done[t[1]]?'<span class="dot" title="Yozilgan"></span><span>yozilgan</span>':"")+"</span><b>"+esc(t[1])+"</b></button>";
+  });
+  $("tgrid").innerHTML=html||'<p class="empty">Mavzu topilmadi.</p>';
+}
+$("cats").addEventListener("click",function(e){ var b=e.target.closest("button[data-c]"); if(!b) return; catSel=b.dataset.c; renderTopics(); });
+$("tq").addEventListener("input",renderTopics);
+$("tgrid").addEventListener("click",function(e){ var b=e.target.closest(".tcard"); if(!b) return; setTopic(+b.dataset.i,true); });
+
+/* natijalarim */
+function dayKey(t){ var d=new Date(t); return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate(); }
+function renderMe(){
+  var H=store.hist, n=H.length, best=n?Math.max.apply(null,H.map(function(h){return h.score;})):0, avg=n?Math.round(H.reduce(function(a,h){return a+h.score;},0)/n):0;
+  var days={}; H.forEach(function(h){days[dayKey(h.t)]=1;}); var streak=0, d=new Date();
+  if(!days[dayKey(d)]) d.setDate(d.getDate()-1);
+  while(days[dayKey(d)]){ streak++; d.setDate(d.getDate()-1); }
+  renderProf();
+  $("stats").innerHTML=[[n,"saqlangan esse"],[store.tests.length,"yozma test"],[best||"—","eng yuqori ball"],[n?avg:"—","oʻrtacha ball"],[streak,"kun ketma-ket"]].map(function(x){return '<div class="card stat"><b>'+x[0]+"</b><span>"+x[1]+"</span></div>";}).join("");
+  var sc=$("sparkCard"); sc.hidden=n<2;
+  if(n>=2){ var pts=H.slice(0,20).reverse(), W=300,Hh=90, step=W/(pts.length-1);
+    var path=pts.map(function(p,i){return (i?"L":"M")+(i*step).toFixed(1)+" "+(Hh-8-(p.score/100)*(Hh-16)).toFixed(1);}).join(" ");
+    var last=pts[pts.length-1], lx=(pts.length-1)*step, ly=Hh-8-(last.score/100)*(Hh-16);
+    $("spark").innerHTML='<path d="'+path+'" fill="none" stroke="var(--acc)" stroke-width="2.4" vector-effect="non-scaling-stroke"/><circle cx="'+Math.min(lx,296)+'" cy="'+ly.toFixed(1)+'" r="4" fill="var(--err)"/>'; }
+  $("hist").innerHTML=n? H.map(function(h){ var dt=new Date(h.t); return '<div class="hrow"><span class="t">'+esc(h.topic)+'</span><span class="pill">'+h.score+" · "+esc(h.level)+'</span><span class="d">'+esc(h.cat||"")+" · "+h.words+" soʻz · "+dt.toLocaleDateString("uz-UZ")+(h.ai!=null?" · Claude: "+h.ai:"")+"</span></div>"; }).join("")
+    : '<p class="empty">Hali saqlangan esse yoʻq. Yozish boʻlimida 100 soʻzdan oshgach, «Natijani saqlash»ni bosing.</p>';
+}
+var hcAsk=false;
+$("bHistClear").addEventListener("click",function(){ var b=$("bHistClear");
+  if(!hcAsk){ hcAsk=true; b.textContent="Rostdan oʻchirilsinmi?"; setTimeout(function(){hcAsk=false;b.textContent="Natijalarni oʻchirish";},3000); return; }
+  hcAsk=false; b.textContent="Natijalarni oʻchirish"; store.hist=[]; saveStore(); renderMe(); });
+
+/* --- Claude bilan chuqur tekshiruv --- */
+var sampleFn=null;
+function getSample(){ try{ if(window.claude && window.claude.use) return window.claude.use("sample").then(function(s){return s;},function(){return null;}); }catch(e){} return Promise.resolve(null); }
+getSample().then(function(s){ sampleFn=s; $("bAI").hidden=!s; });
+function aiPrompt(text){
+  return "Sen oʻzbek tili va adabiyoti boʻyicha professor va milliy sertifikat yozma ish (esse) imtihoni ekspertisan. Quyidagi mavzu boʻyicha yozilgan esseni sinchiklab tekshir.\n\n"
+  +"QOIDALAR:\n1) Faqat aniq va ishonchli xatolarni yoz. Ishonching komil boʻlmasa, xato deb yozma. Yoʻq xato oʻylab topma.\n"
+  +"2) Har bir xato uchun «parcha» maydoniga xatoli matnni esseda qanday boʻlsa, AYNAN shunday (harfma-harf, 3 dan 60 belgigacha) koʻchir. Parchani oʻzgartirma.\n"
+  +"3) Imlo (lotin alifbosi, oʻ, gʻ, ʻ va ʼ belgilari), tinish, kelishik va egalik qoʻshimchalari, ega-kesim moslashuvi, uyushiq boʻlaklar, ergash gaplar, soʻz tanlash va uslubni tekshir.\n"
+  +"4) Fikr izchilligi, mavzuga muvofiqlik va kirish-asosiy qism-xulosa tuzilishini baholab, qisqa izoh yoz.\n"
+  +"5) Hamma izohlar oddiy oʻzbek tilida (lotin yozuvida) va qisqa boʻlsin.\n\n"
+  +"Javobni FAQAT bitta JSON obyekt qilib ber, boshqa matn qoʻshma. Shakli:\n"
+  +'{"ball":0-100 butun son,"mavzuga_muvofiqlik":"1-2 gap","fikr_izchilligi":"1-2 gap","gap_tuzilishi":"1-2 gap","xatolar":[{"parcha":"esseda aynan shunday yozilgan matn","tuzatish":"toʻgʻri variant","sabab":"qisqa qoida yoki sabab"}],"kuchli_tomonlar":["..."],"yaxshilash":["..."]}\n\n'
+  +"MAVZU: "+topicTitle()+"\n\nESSE:\n"+text.slice(0,7000);
+}
+$("bAI").addEventListener("click",function(){
+  var text=ta.value; if(!sampleFn) return;
+  if(aiPending){ if(aiAbort) aiAbort.abort(); return; }
+  if(tokenize(text).length<30){ toast("Chuqur tekshiruv uchun kamida 30 soʻz yozing"); return; }
+  var card=$("aiCard"), btn=$("bAI"); card.hidden=false; aiPending=true; aiAbort=new AbortController(); btn.textContent="Toʻxtatish";
+  card.innerHTML='<h3>Claude tekshirmoqda</h3><p class="note"><span class="spin"></span>Esse oʻqilmoqda. Bu bir daqiqagacha vaqt olishi mumkin.</p>';
+  sampleFn.json(aiPrompt(text),{modelTier:"complex",cache:false,signal:aiAbort.signal}).then(function(r){
+    lastAI=r&&typeof r==="object"?r:null; renderAI(lastAI,text);
+  },function(e){
+    var m={not_granted:"Claude ishlatishga ruxsat berilmadi.",rate_limited:"Soʻrovlar juda koʻp. Birozdan soʻng qayta urinib koʻring.",cancelled:"Tekshiruv toʻxtatildi.",invalid_json:"Javobni oʻqib boʻlmadi. Qayta urinib koʻring.",session_expired:"Qayta kirish kerak.",sampling_disabled:"Claude bu hisob uchun yoqilmagan."}[e&&e.code]||"Tekshiruv bajarilmadi. Keyinroq qayta urinib koʻring.";
+    card.innerHTML='<h3>Chuqur tekshiruv</h3><p class="note">'+esc(m)+"</p>";
+  }).then(function(){ aiPending=false; aiAbort=null; btn.textContent="Chuqur tekshiruv (Claude)"; });
+});
+function listHtml(a){ return Array.isArray(a)&&a.length? "<ul>"+a.slice(0,8).map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul>" : '<p class="note">—</p>'; }
+function renderAI(r,text){
+  var card=$("aiCard"); if(!r){ card.innerHTML='<h3>Chuqur tekshiruv</h3><p class="note">Javob notoʻgʻri formatda keldi.</p>'; return; }
+  var okE=[], drop=0, seen={};
+  (Array.isArray(r.xatolar)?r.xatolar:[]).forEach(function(x){
+    if(!x||typeof x.parcha!=="string"||typeof x.tuzatish!=="string"){ drop++; return; }
+    var p=x.parcha, i=text.indexOf(p);
+    if(i<0||p.length<2||p.trim()===x.tuzatish.trim()||seen[i+":"+p]){ drop++; return; }
+    seen[i+":"+p]=1; okE.push({s:i,e:i+p.length,p:p,f:x.tuzatish,why:String(x.sabab||"")});
+  });
+  okE.sort(function(a,b){return a.s-b.s;});
+  var h='<h3>Claude xulosasi'+(typeof r.ball==="number"?" · "+Math.round(r.ball)+" / 100":"")+"</h3>";
+  h+="<h4>Mavzuga muvofiqlik</h4><p>"+esc(r.mavzuga_muvofiqlik||"—")+"</p>";
+  h+="<h4>Fikr izchilligi</h4><p>"+esc(r.fikr_izchilligi||"—")+"</p>";
+  h+="<h4>Gap tuzilishi</h4><p>"+esc(r.gap_tuzilishi||"—")+"</p>";
+  h+="<h4>Topilgan xatolar ("+okE.length+")</h4>";
+  h+= okE.length? okE.slice(0,25).map(function(x,i){ return '<div class="fix"><q>'+esc(x.p)+"</q> → <b>"+esc(x.f)+"</b><div class=\"note\">"+esc(x.why)+'</div><div class="ib"><button class="btn sm" type="button" data-ai="go" data-i="'+i+'">Koʻrsatish</button><button class="btn sm" type="button" data-ai="fix" data-i="'+i+'">Tuzatish</button></div></div>'; }).join("") : '<p class="note">Aniq xato topilmadi.</p>';
+  if(drop) h+='<p class="note">'+drop+" ta taxmin matndan tasdiqlanmagani uchun koʻrsatilmadi.</p>";
+  h+="<h4>Kuchli tomonlar</h4>"+listHtml(r.kuchli_tomonlar)+"<h4>Qanday yaxshilash mumkin</h4>"+listHtml(r.yaxshilash);
+  card.innerHTML=h; card._errs=okE; card.scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+$("aiCard").addEventListener("click",function(e){ var b=e.target.closest("button[data-ai]"); if(!b) return; var x=this._errs&&this._errs[+b.dataset.i]; if(!x) return;
+  var T=ta.value; var i=T.indexOf(x.p); if(i<0){ toast("Matn oʻzgargan: parcha topilmadi"); return; }
+  if(b.dataset.ai==="go"){ ta.focus({preventScroll:true}); ta.setSelectionRange(i,i+x.p.length); ta.scrollIntoView({block:"center",behavior:"smooth"}); }
+  else { applyEdit(T.slice(0,i)+x.f+T.slice(i+x.p.length), i+x.f.length); toast("Tuzatildi"); }
+});
+
+/* --- uch ustoz (trio) --- */
+function verdict(p){ return p>=85?"Aʼlo":(p>=70?"Yaxshi":(p>=50?"Oʻrtacha":"Kuchaytirish kerak")); }
+function renderTrio(r){
+  var el=$("trio");
+  if(r.score===null){ el.innerHTML='<h3>Uch ustoz tekshiruvi</h3><p class="note">Imlo ustozi, Tuzilish ustozi va Mazmun ustozi 100 soʻzdan keyin hukm chiqaradi. Hozircha matn yozing.</p>'; return; }
+  var R=r.rubric, st=r.stats;
+  var im=Math.round(R.imlo.v/R.imlo.max*100);
+  var tu=Math.round((R.tuzilish.v+R.gap.v)/(R.tuzilish.max+R.gap.max)*100);
+  var mz=Math.round(0.35*(R.lugat.v/R.lugat.max*100)+0.3*(st.topicHit===false?25:100)+0.2*(R.hajm.v/R.hajm.max*100)+0.15*(st.hasConcl?100:40));
+  var ap=r.issues.filter(function(x){return x.apos;}).length;
+  var c1=[], c2=[], c3=[];
+  c1.push(st.errCount? st.errCount+" ta imlo/tinish xatosi topildi." : "Imlo va tinishda aniq xato yoʻq.");
+  if(ap) c1.push(ap+" ta apostrof belgisi (ʻ yoki ʼ) toʻgʻrilanishi mumkin.");
+  if(st.errCount||ap) c1.push("«Imlo va tinishni tuzatish» tugmasi koʻpini oʻzi tuzatadi.");
+  c2.push("Oʻrtacha gap "+(Math.round(st.avg*10)/10)+" soʻz"+(st.longN? "; "+st.longN+" ta gap juda uzun.":"."));
+  c2.push(r.paragraphs<3? "Xatboshilar kam: kirish, asosiy qism, xulosa deb 3 qismga boʻling." : "Xatboshi tuzilishi yaxshi ("+r.paragraphs+" ta).");
+  c2.push(st.conn.length<3? "Bogʻlovchi iboralar (shuningdek, biroq, demak) yetarli emas." : "Bogʻlovchi iboralar yetarli ("+st.conn.length+").");
+  if(st.noPred) c2.push(st.noPred+" ta gapda kesim topilmadi: gap tugallanganini tekshiring.");
+  c3.push(st.topicHit===false? "Mavzu kalit soʻzlari matnda kam: mavzudan chetga chiqmang." : "Matn mavzuga yaqin.");
+  c3.push(st.rep? st.rep+" ta soʻz koʻp takrorlangan: sinonim ishlating." : "Soʻz takrori me'yorda.".replace("me'yorda","meʼyorda"));
+  c3.push(st.hasConcl? "Xulosa mavjud." : "Aniq xulosa yoʻq: «Demak», «Xulosa qilib aytganda» bilan yakunlang.");
+  function row(cls,name,who,p,c){ return '<div class="tri '+cls+'"><div class="n">'+p+'<small>/100</small></div><h4>'+name+'<em>'+who+' · '+verdict(p)+'</em></h4><ul>'+c.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>"; }
+  window.__trio={im:im,tu:tu,mz:mz};
+  var avg=Math.round((im+tu+mz)/3);
+  el.innerHTML='<h3>Uch ustoz tekshiruvi · oʻrtacha '+avg+'</h3>'+row("a","1-ustoz: Imlo","imlo va tinish",im,c1)+row("b","2-ustoz: Tuzilish","gap va matn qurilishi",tu,c2)+row("c","3-ustoz: Mazmun","mavzu va lugʻat",mz,c3);
+}
+
+/* --- kirish va profil --- */
+function initials(n){ return (n||"?").trim().charAt(0).toUpperCase()||"?"; }
+function renderUser(){
+  var u=store.user; $("whoI").textContent=u?initials(u.name):"?"; $("whoN").textContent=u?u.name:"Kirish";
+  $("hello").innerHTML=u? "Salom, <b>"+esc(fullName(u))+"</b>! Maqsadingiz: <b>"+esc(u.goal||"A")+"</b> daraja. Shoshilmang, xotirjam yozing." : "";
+}
+function openGate(edit){
+  var u=store.user||{}; $("gName").value=u.name||tgName()||""; $("gSur").value=u.surname||(tgUser()&&!u.name?(tgUser().last_name||""):""); $("gReg").value=u.region||""; var tg=tgUser(); $("gTg").hidden=!tg; $("gOr").hidden=!tg; if(tg) $("gTg").textContent="✈️ Telegram bilan kirish: "+(tg.first_name+(tg.last_name?" "+tg.last_name:"")); $("gGoal").value=u.goal||"A";
+  $("gate").hidden=false; setTimeout(function(){try{$("gName").focus();}catch(e){}},50);
+}
+function tgUser(){ try{ var u=Telegram.WebApp.initDataUnsafe.user; return (u&&u.first_name)?u:null; }catch(e){ return null; } }
+function tgName(){ var u=tgUser(); return u?u.first_name:""; }
+function fullName(u){ return u?((u.name||"")+(u.surname?" "+u.surname:"")).trim():""; }
+$("gForm").addEventListener("submit",function(e){ e.preventDefault(); var n=$("gName").value.trim(); if(!n){ $("gName").focus(); return; }
+  store.user={name:n.slice(0,40),surname:$("gSur").value.trim().slice(0,40),tg:(store.user&&store.user.tg)||null,region:$("gReg").value,goal:$("gGoal").value,since:(store.user&&store.user.since)||Date.now()}; saveStore(); $("gate").hidden=true; renderUser(); toast("Xush kelibsiz, "+n+"!"); try{ta.focus({preventScroll:true});}catch(_){} });
+$("gTg").addEventListener("click",function(){ var u=tgUser(); if(!u) return; $("gName").value=u.first_name||""; $("gSur").value=u.last_name||"";
+  store.user={name:(u.first_name||"Foydalanuvchi").slice(0,40),surname:(u.last_name||"").slice(0,40),tg:{id:u.id,username:u.username||""},region:$("gReg").value,goal:$("gGoal").value,since:(store.user&&store.user.since)||Date.now()};
+  saveStore(); $("gate").hidden=true; renderUser(); toast("Telegram orqali kirdingiz"); });
+$("who").addEventListener("click",function(){ setTab("me"); });
+function renderProf(){
+  var u=store.user; if(!u){ $("prof").innerHTML='<button class="btn pri" id="pLog" type="button">Roʻyxatdan oʻtish</button>'; return; }
+  $("prof").innerHTML='<div class="who"><b>'+esc(initials(u.name))+'</b></div><div style="flex:1;min-width:150px"><b>'+esc(fullName(u))+'</b><div class="note">'+(u.tg&&u.tg.username?"@"+esc(u.tg.username)+" · ":"")+esc(u.region||"Viloyat koʻrsatilmagan")+" · maqsad: "+esc(u.goal)+' daraja</div></div><button class="btn" id="pEdit" type="button">Tahrirlash</button><button class="btn" id="pOut" type="button">Chiqish</button>';
+}
+$("prof").addEventListener("click",function(e){ var id=e.target.id; if(id==="pEdit"||id==="pLog") openGate(); else if(id==="pOut"){ if(confirm("Profildan chiqilsinmi? Esselar qurilmada qoladi.")){ store.user=null; saveStore(); renderUser(); renderProf(); openGate(); } } });
+
+/* --- tinchlanish --- */
+var calmT=null;
+function calmStart(){ $("calm").hidden=false; var ph=[["Nafas oling",4000],["Ushlab turing",2000],["Sekin chiqaring",6000]],i=0; function step(){ $("calmT").textContent=ph[i][0]; var d=ph[i][1]; i=(i+1)%3; calmT=setTimeout(step,d); } clearTimeout(calmT); step(); }
+function calmStop(){ clearTimeout(calmT); $("calm").hidden=true; try{ta.focus({preventScroll:true});}catch(e){} }
+$("bCalm").addEventListener("click",calmStart); $("calmX").addEventListener("click",calmStop);
+
+/* --- oʻz mavzu --- */
+$("bOwn").addEventListener("click",function(){ setTab("topics"); setTimeout(function(){ try{$("custIn").focus();}catch(e){} },80); });
+$("cust").addEventListener("submit",function(e){ e.preventDefault(); var v=fixAposText($("custIn").value.replace(/\s+/g," ").trim());
+  if(v.length<5){ toast("Mavzu kamida 5 belgidan iborat boʻlsin"); return; }
+  var all=TOPICS.map(function(x){return x[1].toLowerCase();}), k=all.indexOf(v.toLowerCase());
+  if(k<0){ store.custom.push(v.slice(0,120)); rebuildTopics(); k=TOPICS.length-1; saveStore(); toast("Oʻz mavzuingiz qoʻshildi"); }
+  $("custIn").value=""; setTopic(k,true); });
+
+/* --- yozma test --- */
+var TS={mode:"setup",kinds:{},list:[],i:0,ok:0,ans:null,log:[]};
+function tnorm(s){ return fixAposText(String(s)).toLowerCase().replace(/[ʻʼ'’`‘´ʹ]/g,"'").replace(/\s+/g," ").trim().replace(/[.!?,;:]+$/,""); }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var x=a[i]; a[i]=a[j]; a[j]=x; } return a; }
+function renderTest(){
+  var B=$("tBody");
+  if(TS.mode==="setup"){
+    var kinds=[]; WTESTS.forEach(function(q){ if(kinds.indexOf(q.k)<0) kinds.push(q.k); });
+    B.innerHTML='<div class="card tq"><b>Qaysi turdagi savollar?</b><div class="kinds" id="kinds">'+kinds.map(function(k){ var n=WTESTS.filter(function(q){return q.k===k;}).length; return '<label><input type="checkbox" value="'+esc(k)+'" checked> '+esc(k)+' <span class="note">('+n+')</span></label>'; }).join("")+'</div><label style="font-weight:600">Savollar soni<select class="fld" id="tN"><option>10</option><option selected>15</option><option>20</option><option>30</option></select></label><div class="acts"><button class="btn pri" id="tGo" type="button">Testni boshlash</button></div><p class="note">Jami '+WTESTS.length+' ta savol. Javobni klaviaturada yozasiz; apostrofni oddiy («\'») yozsangiz ham boʻladi.</p></div>';
+  } else if(TS.mode==="run"){
+    var q=TS.list[TS.i], p=Math.round(TS.i/TS.list.length*100);
+    B.innerHTML='<div class="card tq"><div class="meta"><span>'+esc(q.k)+'</span><span>'+(TS.i+1)+" / "+TS.list.length+'</span></div><div class="pbar"><i style="width:'+p+'%"></i></div><div class="qt">'+esc(q.q)+'</div>'
+      +(TS.ans===null?'<input class="fld" id="tIn" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Javobingizni yozing"><div class="acts"><button class="btn pri" id="tChk" type="button">Tekshirish</button><button class="btn" id="tSkip" type="button">Bilmayman</button></div>'
+       :'<div class="fb '+(TS.ans.ok?"ok":"no")+'"><b>'+(TS.ans.ok?"Toʻgʻri!":"Xato.")+'</b> '+(TS.ans.ok?"":'Toʻgʻri javob: <b>'+esc(q.a[0])+'</b>. ')+esc(q.e)+'</div><div class="acts"><button class="btn pri" id="tNext" type="button">'+(TS.i+1<TS.list.length?"Keyingisi":"Natijani koʻrish")+'</button></div>')+'</div>';
+    var inp=$("tIn"); if(inp) setTimeout(function(){inp.focus();},30);
+  } else {
+    var pc=Math.round(TS.ok/TS.list.length*100), lvl=pc>=90?"A+":(pc>=75?"A":(pc>=60?"B+":(pc>=45?"B":"B dan past")));
+    B.innerHTML='<div class="card tq"><div class="big">'+TS.ok+' <small>/ '+TS.list.length+' ('+pc+'%)</small></div><span class="lvl">Daraja: '+lvl+'</span><p class="note">'+(pc>=75?"Ajoyib natija!":"Xatolar ustida ishlang, keyin qayta urinib koʻring.")+'</p>'
+      +(TS.log.length?'<b>Xato javoblar</b><ul class="note" style="margin:0;padding-left:18px">'+TS.log.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul>":"")
+      +'<div class="acts"><button class="btn pri" id="tAgain" type="button">Yangi test</button></div></div>';
+  }
+}
+function tCheck(skip){ var q=TS.list[TS.i], v=skip?"":tnorm($("tIn").value); if(!skip&&!v){ toast("Javobni yozing"); return; }
+  var ok=!skip&&q.a.some(function(a){return tnorm(a)===v;}); TS.ans={ok:ok,v:v}; if(ok) TS.ok++; else TS.log.push(q.q.replace(/\n/g," ")+" → "+q.a[0]); renderTest(); }
+$("tBody").addEventListener("click",function(e){ var id=e.target.id;
+  if(id==="tGo"){ var ks=[].slice.call(document.querySelectorAll("#kinds input:checked")).map(function(x){return x.value;}); if(!ks.length){ toast("Kamida bitta turni tanlang"); return; }
+    var pool=WTESTS.filter(function(q){return ks.indexOf(q.k)>=0;}); TS.list=shuffle(pool).slice(0,+$("tN").value); TS.i=0; TS.ok=0; TS.ans=null; TS.log=[]; TS.mode="run"; renderTest(); }
+  else if(id==="tChk") tCheck(false); else if(id==="tSkip") tCheck(true);
+  else if(id==="tNext"){ TS.ans=null; TS.i++; if(TS.i>=TS.list.length){ TS.mode="end"; store.tests.unshift({t:Date.now(),ok:TS.ok,n:TS.list.length}); store.tests=store.tests.slice(0,60); saveStore(); } renderTest(); }
+  else if(id==="tAgain"){ TS.mode="setup"; renderTest(); } });
+$("tBody").addEventListener("keydown",function(e){ if(e.key==="Enter"&&e.target.id==="tIn"){ e.preventDefault(); tCheck(false); } });
+
+/* --- professional ekspert hisoboti --- */
+var lastSaved=null;
+function topicStems(){ var o=[]; tokenize(topicTitle()).forEach(function(x){ var n=x.w.toLowerCase().replace(/[ʻʼ'’`‘´ʹ]/g,""); if(n.length>=5) o.push(n.slice(0,4)); }); return o; }
+function expertData(r){
+  var R=r.rubric, st=r.stats, P=r.pro, T=ta.value;
+  var paras=T.split(/\n\s*\n/).filter(function(x){return x.trim();});
+  var p0=(paras[0]||"").toLowerCase().replace(/[ʻʼ'’`‘´ʹ]/g,""), sm=topicStems();
+  var thesis = sm.length? sm.some(function(x){return p0.indexOf(x)>=0;}) : true;
+  var W=r.words, ish=P.intro/W, csh=P.concl/W;
+  var maz = (st.topicHit===false?0:25) + (thesis?15:0) + 25*Math.min(1,P.examples/2) + (P.counter>=1?15:0) + 20*R.hajm.v/R.hajm.max;
+  var bal = (ish>=0.08&&ish<=0.32?10:3) + (csh>=0.08&&csh<=0.32?10:3);
+  var tuz = (r.paragraphs>=3?25:(r.paragraphs===2?12:3)) + (st.hasConcl?20:0) + 20*Math.min(1,st.conn.length/4) + (r.paragraphs>=3?bal:5) + 15*R.gap.v/R.gap.max;
+  var pen = P.coll*8 + P.cliche*4 + (P.juda>=4?6:0) + (P.excl>=4?4:0);
+  var til = 40*R.lugat.v/R.lugat.max + 30*R.gap.v/R.gap.max + Math.max(0,30-pen);
+  var im = 100*R.imlo.v/R.imlo.max;
+  var C=[["Mazmun va dalillar",Math.round(Math.min(100,maz))],["Tuzilish va mantiq",Math.round(Math.min(100,tuz))],["Til va uslub",Math.round(Math.min(100,til))],["Imlo va tinish",Math.round(im)]];
+  var overall=Math.round(0.3*C[0][1]+0.25*C[1][1]+0.2*C[2][1]+0.25*C[3][1]);
+  var A=[];
+  if(st.topicHit===false) A.push([9,"Mavzuga qayting: mavzudagi asosiy soʻzlarni kirishda va xulosada ishlating."]);
+  if(!thesis) A.push([7,"Kirishda asosiy fikringizni (tezis) bitta aniq gapda ayting."]);
+  if(P.examples<2) A.push([8,"Kamida 2 ta aniq misol keltiring: tarixdan, adabiyotdan yoki hayotdan («Masalan, …»)."]);
+  if(P.counter<1) A.push([5,"Qarama-qarshi fikrni ham keltirib, unga javob bering («Biroq…», «Lekin…»)."]);
+  if(r.paragraphs<3) A.push([8,"Esseni 3 qismga boʻling: kirish, asosiy qism, xulosa (boʻsh qator bilan ajrating)."]);
+  if(!st.hasConcl) A.push([6,"Xulosa qoʻshing: «Demak», «Xulosa qilib aytganda» bilan boshlab, tezisni qaytaring."]);
+  if(r.paragraphs>=3 && bal<20) A.push([4,"Qismlar nisbatini toʻgʻrilang: kirish va xulosa har biri umumiy hajmning taxminan 10–30 foizi boʻlsin."]);
+  if(st.errCount>0) A.push([Math.min(10,2+st.errCount*1.5),"«Imlo va tinishni tuzatish» tugmasini bosing: "+st.errCount+" ta xato bor."]);
+  if(st.rep>0) A.push([4,"Takrorlangan soʻzlarni sinonim bilan almashtiring ("+st.rep+" ta guruh)."]);
+  if(P.coll||P.cliche||P.juda>=4) A.push([4,"Uslubni tozalang: soʻzlashuv shakllari, shablon iboralar va «juda» takrorini kamaytiring."]);
+  if(r.words<150) A.push([5,"Hajmni 150–250 soʻzgacha yetkazing."]);
+  if(st.noPred>0) A.push([3,"Kesimsiz koʻringan "+st.noPred+" ta gapni tugallang."]);
+  A.sort(function(a,b){return b[0]-a[0];});
+  var S=[]; if(C[0][1]>=80) S.push("Fikr mavzuga mos va dalillar yetarli."); if(C[1][1]>=80) S.push("Matn tuzilishi aniq: kirish, asosiy qism va xulosa bor."); if(C[2][1]>=80) S.push("Lugʻat boy va uslub tekis."); if(C[3][1]>=90) S.push("Imlo va tinish deyarli xatosiz.");
+  if(P.examples>=2) S.push("Misollar bilan fikr mustahkamlangan."); if(P.counter>=1) S.push("Qarama-qarshi fikr ham koʻrib chiqilgan.");
+  return {C:C,overall:overall,A:A.slice(0,3),S:S.slice(0,4),thesis:thesis,P:P};
+}
+function renderExpert(r){
+  var el=$("expert"); if(r.score===null||!r.pro){ el.innerHTML='<h3>Ekspert xulosasi</h3><p class="note">100 soʻzdan keyin batafsil hisobot: mezonlar, kuchli tomonlar va 3 ta eng muhim qadam.</p>'; window.__exp=null; return; }
+  var d=expertData(r); window.__exp=d;
+  el.innerHTML='<h3>Ekspert xulosasi · '+d.overall+' / 100</h3>'
+   +d.C.map(function(c){ return '<div class="crit"><b>'+c[0]+'</b><span>'+c[1]+" / 100</span>"+bar(c[1],100)+"</div>"; }).join("")
+   +(d.S.length?'<b>Kuchli tomonlar</b><ul class="pos">'+d.S.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul>":"")
+   +'<b>Eng muhim qadamlar</b>'+(d.A.length?'<ol class="steps">'+d.A.map(function(a){return "<li>"+esc(a[1])+"</li>";}).join("")+"</ol>":'<p class="note">Jiddiy kamchilik topilmadi. «Chuqur tekshiruv» bilan mazmunni ham tekshiring.</p>')
+   +'<div class="acts"><button class="btn sm" id="bCopyRep" type="button">Hisobotni nusxalash</button></div>';
+}
+function copyText(s){ try{ navigator.clipboard.writeText(s).then(function(){toast("Nusxalandi");},function(){fb();}); }catch(e){ fb(); } function fb(){ var x=document.createElement("textarea"); x.value=s; document.body.appendChild(x); x.select(); try{document.execCommand("copy"); toast("Nusxalandi");}catch(e){toast("Nusxalab boʻlmadi");} x.remove(); } }
+$("expert").addEventListener("click",function(e){ if(e.target.id!=="bCopyRep"||!cur||!window.__exp) return; var d=window.__exp;
+  var L=["ESSE HISOBOTI","Mavzu: "+topicTitle(),"So‘z: "+cur.words+" | Bal: "+cur.score+" ("+cur.level+") | Ekspert: "+d.overall,""].concat(d.C.map(function(c){return c[0]+": "+c[1]+"/100";})).concat(["","Eng muhim qadamlar:"]).concat(d.A.map(function(a,i){return (i+1)+". "+a[1];}));
+  copyText(L.join("\n")); });
+
+/* --- adminga yuborish (Telegram sendData) --- */
+$("bSend").addEventListener("click",function(){ var h=lastSaved||store.hist[0]; if(!h){ toast("Avval natijani saqlang"); return; }
+  var u=store.user||{}; var o={k:"esse",ts:h.t,name:fullName(u)||"Nomaʼlum",topic:h.topic,cat:h.cat,words:h.words,score:h.score,level:h.level,im:h.im,tu:h.tu,mz:h.mz};
+  try{ Telegram.WebApp.sendData(JSON.stringify(o)); }catch(e){ toast("Yuborib boʻlmadi. Botdagi «✍️ Esse yozish» tugmasidan oching."); } });
+
+/* --- admin rejimi --- */
+var adminOn=false, adminData=null, aSrc="bot";
+function b64u(s){ s=s.replace(/-/g,"+").replace(/_/g,"/"); while(s.length%4) s+="="; var b=atob(s), a=new Uint8Array(b.length); for(var i=0;i<b.length;i++) a[i]=b.charCodeAt(i); return a; }
+function readPayload(){ try{ var m=/[?&]a=([A-Za-z0-9_-]+)/.exec(location.search+"&"+location.hash.replace("#","")); if(!m) return Promise.resolve(null);
+  var ds=new DecompressionStream("deflate"), w=ds.writable.getWriter(); w.write(b64u(m[1])); w.close();
+  return new Response(ds.readable).text().then(function(x){ return JSON.parse(x); }).catch(function(){ return null; }); }catch(e){ return Promise.resolve(null); } }
+function showAdminTab(go){ adminOn=true; $("tab-admin").hidden=false; if(go) setTab("admin"); }
+readPayload().then(function(d){ if(d&&d.r){ adminData=d; $("gate").hidden=true; showAdminTab(true); } });
+var tapN=0, tapT=null;
+$("brand").addEventListener("click",function(){ tapN++; clearTimeout(tapT); tapT=setTimeout(function(){tapN=0;},4000); if(tapN>=7){ tapN=0; if(adminOn){ setTab("admin"); } else { showAdminTab(true); toast("Admin rejimi"); } } });
+$("aOut").addEventListener("click",function(){ adminOn=false; $("tab-admin").hidden=true; setTab("write"); });
+function admRows(){ if(aSrc==="bot"&&adminData) return adminData.r.map(function(x){ return {t:x[0],name:x[1],topic:x[2],words:x[3],score:x[4],level:x[5],im:x[6],tu:x[7],mz:x[8]}; });
+  return store.hist.map(function(h){ return {t:h.t,name:fullName(store.user)||"Men",topic:h.topic,words:h.words,score:h.score,level:h.level,im:h.im,tu:h.tu,mz:h.mz}; }); }
+function renderAdmin(){
+  var hasBot=!!adminData; if(!hasBot) aSrc="local";
+  $("aNote").textContent = hasBot? "Botdagi barcha foydalanuvchilar natijalari (oxirgi "+adminData.r.length+" tasi koʻrsatiladi, umumiy son aniq)." : "Bu qurilmadagi natijalar. Barcha foydalanuvchilarni koʻrish uchun botdagi admin menyusidan «✍️ Esse natijalari» tugmasini bosing.";
+  $("aSeg").innerHTML = hasBot? '<button class="fchip" data-s="bot" aria-pressed="'+(aSrc==="bot")+'">Hamma foydalanuvchilar</button><button class="fchip" data-s="local" aria-pressed="'+(aSrc==="local")+'">Faqat bu qurilma</button>' : "";
+  var rows=admRows(), q=$("aQ").value.trim().toLowerCase(); var shown=q? rows.filter(function(x){return (x.name+" "+x.topic).toLowerCase().indexOf(q)>=0;}) : rows;
+  var n=(aSrc==="bot"&&adminData)? adminData.n : rows.length, sc=rows.map(function(x){return x.score;});
+  var avg=(aSrc==="bot"&&adminData&&adminData.v!=null)? adminData.v : (sc.length?Math.round(sc.reduce(function(a,b){return a+b;},0)/sc.length):0);
+  var users=(aSrc==="bot"&&adminData)? adminData.u : new Set(rows.map(function(x){return x.name;})).size;
+  $("aStats").innerHTML=[[n,"esse"],[users,"foydalanuvchi"],[avg||"—","oʻrtacha ball"],[sc.length?Math.max.apply(null,sc):"—","eng yuqori"]].map(function(x){return '<div class="card stat"><b>'+x[0]+"</b><span>"+x[1]+"</span></div>";}).join("");
+  var lv={"A+":0,"A":0,"B+":0,"B":0,"B dan past":0}; rows.forEach(function(x){ if(lv[x.level]!==undefined) lv[x.level]++; }); var mx=Math.max(1,Math.max.apply(null,Object.keys(lv).map(function(k){return lv[k];})));
+  $("aDist").innerHTML='<b>Darajalar boʻyicha</b>'+Object.keys(lv).map(function(k){ return '<div class="rw"><span>'+k+'</span><div class="bar"><i style="width:'+Math.round(lv[k]/mx*100)+'%"></i></div><span>'+lv[k]+"</span></div>"; }).join("");
+  $("aTbl").innerHTML=shown.length? shown.map(function(x){ var dt=new Date(x.t); return '<div class="arow"><span class="n">'+esc(x.name)+'</span><span class="pill">'+x.score+" · "+esc(x.level)+'</span><span class="d">'+esc(x.topic)+" · "+x.words+" soʻz"+(x.im!=null?" · imlo "+x.im+", tuzilish "+x.tu+", mazmun "+x.mz:"")+" · "+dt.toLocaleDateString("uz-UZ")+" "+dt.toLocaleTimeString("uz-UZ",{hour:"2-digit",minute:"2-digit"})+"</span></div>"; }).join("") : '<p class="empty">Natija topilmadi.</p>';
+}
+$("aSeg").addEventListener("click",function(e){ var b=e.target.closest("button[data-s]"); if(!b) return; aSrc=b.dataset.s; renderAdmin(); });
+$("aQ").addEventListener("input",renderAdmin);
+$("aCsv").addEventListener("click",function(){ var rows=admRows(); var L=["sana,ism,mavzu,soz,ball,daraja,imlo,tuzilish,mazmun"].concat(rows.map(function(x){ return [new Date(x.t).toISOString(),x.name,x.topic,x.words,x.score,x.level,x.im==null?"":x.im,x.tu==null?"":x.tu,x.mz==null?"":x.mz].map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(","); })); copyText(L.join("\n")); });
+
+/* boshlash */
+loadStore(); rebuildTopics(); if(store.topic>=TOPICS.length) store.topic=0; ta.value=store.drafts[store.topic]||""; renderTopic(); grow(); update(true); renderUser(); if(!store.user) openGate();
+if(!ta.value) { try{ ta.focus({preventScroll:true}); }catch(e){} }
+window.addEventListener("resize",grow);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){grow();});
+</script>
+
+<script>try{ if(window.Telegram&&Telegram.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); } }catch(e){}</script>
+</body></html>
